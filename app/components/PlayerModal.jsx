@@ -1,0 +1,116 @@
+"use client";
+
+import React, { useState } from 'react';
+
+
+export default function PlayerModal({ open, onClose, onSaved, initial }) {
+    if (!open) return null;
+
+    const [nickname, setNickname] = useState(initial?.nickname || "");
+    const [tier, setTier] = useState(initial?.tier || 1);
+    const [steamProfile, setSteamProfile] = useState(initial?.steam || "");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const player = {
+            nickname,
+            tier: Number(tier),
+            steamProfile
+        };
+
+        let saved;
+
+        if (initial?._id) {
+            // Editando o vagabundo
+            const res = await fetch("/api/players", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ ...player, _id: initial._id })
+            });
+            saved = await res.json();
+        } else {
+            // Criando o vagabundo
+            const res = await fetch("/api/players", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(player)
+            });
+            saved = await res.json();
+        }
+
+        onSaved(saved); // atualizando lista na telita
+        onClose();
+    };
+
+    return (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
+
+            <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-8 w-full max-w-md shadow-2xl animate-scaleIn">
+
+                {/* Título */}
+                <h3 className="text-2xl font-bold mb-6 text-center">
+                    {initial ? "Editar Player" : "Cadastrar Player"}
+                </h3>
+
+                {/* Form */}
+                <form onSubmit={handleSubmit} className="space-y-5">
+
+                    {/* Nickname */}
+                    <div className="flex flex-col">
+                        <label className="mb-1 text-sm text-zinc-300">Nickname</label>
+                        <input
+                            className="bg-zinc-800 border border-zinc-700 rounded-lg p-2 outline-none focus:border-indigo-500"
+                            value={nickname}
+                            onChange={(e) => setNickname(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    {/* Tier */}
+                    <div className="flex flex-col">
+                        <label className="mb-1 text-sm text-zinc-300">Tier (1-5)</label>
+                        <input
+                            type="number"
+                            min="1"
+                            max="5"
+                            className="bg-zinc-800 border border-zinc-700 rounded-lg p-2 outline-none focus:border-indigo-500"
+                            value={tier}
+                            onChange={(e) => setTier(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    {/* Steam */}
+                    <div className="flex flex-col">
+                        <label className="mb-1 text-sm text-zinc-300">Link do Perfil Steam</label>
+                        <input
+                            className="bg-zinc-800 border border-zinc-700 rounded-lg p-2 outline-none focus:border-indigo-500"
+                            value={steamProfile}
+                            onChange={(e) => setSteamProfile(e.target.value)}
+                        />
+                    </div>
+
+                    {/* Botões */}
+                    <div className="flex justify-end gap-3 pt-4">
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="px-4 py-2 rounded-lg bg-zinc-700 hover:bg-zinc-600 transition"
+                        >
+                            Cancelar
+                        </button>
+
+                        <button
+                            type="submit"
+                            className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 transition font-semibold shadow"
+                        >
+                            Salvar
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    );
+}

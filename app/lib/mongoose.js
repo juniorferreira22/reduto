@@ -1,0 +1,23 @@
+import mongoose from "mongoose";
+
+let isConnected = false;
+
+export async function dbConnect() {
+  if (isConnected) return;
+
+  if (!process.env.MONGODB_URI) {
+    throw new Error("MONGODB_URI não configurada");
+  }
+
+  try {
+    const db = await mongoose.connect(process.env.MONGODB_URI, {
+      dbName: "reduto",
+    });
+
+    isConnected = db.connections[0].readyState === 1;
+    console.log("MongoDB conectado");
+  } catch (err) {
+    console.error("Erro ao conectar no MongoDB:", err);
+    throw err;
+  }
+}
