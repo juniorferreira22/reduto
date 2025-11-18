@@ -41,7 +41,7 @@ export default function RootLayout({ children }) {
               </Link>
 
               <a
-                href="https://discord.gg"
+                href="https://discord.gg/q6WUSGZpSd"
                 target="_blank"
                 rel="noreferrer"
                 className="hover:text-red-800  transition-colors"              >
