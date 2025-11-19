@@ -8,7 +8,7 @@ export default function PlayerModal({ open, onClose, onSaved, initial }) {
 
     const [nickname, setNickname] = useState(initial?.nickname || "");
     const [tier, setTier] = useState(initial?.tier || 1);
-    const [steamProfile, setSteamProfile] = useState(initial?.steam || "");
+    const [steamProfile, setSteamProfile] = useState(initial?.steamProfile || "");
     const [vip, setVip] = useState(initial?.vip || false);
 
     const handleSubmit = async (e) => {
@@ -71,7 +71,7 @@ export default function PlayerModal({ open, onClose, onSaved, initial }) {
 
                     {/* Tier */}
                     <div className="flex flex-col">
-                        <label className="mb-1 text-sm text-zinc-300">Tier (1-5)</label>
+                        <label className="mb-1 text-sm text-zinc-300">Tier (1 a 5)</label>
                         <input
                             type="number"
                             min="1"
