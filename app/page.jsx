@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+export const metadata = { title: "Reduto dos Loucos" };
+
 export default function Home() {
   return (
     <main className="min-h-screen text-white py-20 px-6">
