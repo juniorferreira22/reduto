@@ -78,6 +78,7 @@ export default function PlayersPage() {
                             <th className="py-3 px-4 font-semibold text-zinc-300 text-center">Nickname</th>
                             <th className="py-3 px-4 font-semibold text-zinc-300 text-center">Tier</th>
                             <th className="py-3 px-4 font-semibold text-zinc-300 text-center">Perfil da Steam </th>
+                            <th className="py-3 px-4 font-semibold text-zinc-300 text-center">VIP</th>
                             <th className="py-3 px-4 font-semibold text-zinc-300 text-center">Ações</th>
                         </tr>
                     </thead>

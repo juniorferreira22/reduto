@@ -5,6 +5,7 @@ const PlayerSchema = new Schema(
     nickname: { type: String, required: true },
     tier: { type: Number, required: true, min: 1, max: 5 },
     steamProfile: {type: String, required: false},
+    vip: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

@@ -9,6 +9,7 @@ export default function PlayerModal({ open, onClose, onSaved, initial }) {
     const [nickname, setNickname] = useState(initial?.nickname || "");
     const [tier, setTier] = useState(initial?.tier || 1);
     const [steamProfile, setSteamProfile] = useState(initial?.steam || "");
+    const [vip, setVip] = useState(initial?.vip || false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -16,7 +17,8 @@ export default function PlayerModal({ open, onClose, onSaved, initial }) {
         const player = {
             nickname,
             tier: Number(tier),
-            steamProfile
+            steamProfile,
+            vip
         };
 
         let saved;
@@ -79,6 +81,21 @@ export default function PlayerModal({ open, onClose, onSaved, initial }) {
                             onChange={(e) => setTier(e.target.value)}
                             required
                         />
+                    </div>
+
+                    {/* VIP */}
+                    <div className="flex flex-col">
+                        <label className="mb-1 text-sm text-zinc-300">VIP?</label>
+                        <label className="relative inline-flex items-center cursor-pointer">
+                            <input
+                                type="checkbox"
+                                className="sr-only peer"
+                                checked={vip}
+                                onChange={(e) => setVip(e.target.checked)}
+                            />
+                            <div className="w-11 h-6 bg-zinc-700 rounded-full peer-checked:bg-indigo-600 transition-colors" />
+                            <span className="absolute left-0.5 top-0.5 bg-white w-5 h-5 rounded-full transition-transform peer-checked:translate-x-5" />
+                        </label>
                     </div>
 
                     {/* Steam */}

@@ -21,6 +21,11 @@ export default function PlayerRow({ player, onEdit, onDelete }) {
                     </Link>
                 ) : 'Nada por aqui ainda'}
             </td>
+            {player.vip ?
+                <td className='p-2 px-4 text-center text-green-500 font-bold'>Sim</td>
+                :
+                <td className='p-2 px-4 text-center text-red-500 font-bold'>Não</td>
+            }
             <td className='flex gap-2 w-full justify-center p-2'>
                 <button className='bg-gray-900 p-2 px-4 rounded-md' onClick={() => onEdit(player)}>Editar</button>
                 <button className='bg-red-950 p-2 px-4 rounded-md' onClick={() => onDelete(player._id)}>Excluir</button>
