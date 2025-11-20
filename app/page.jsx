@@ -5,12 +5,12 @@ export const metadata = { title: "Reduto dos Loucos" };
 
 export default function Home() {
   return (
-    <main className="min-h-screen text-white py-20 px-6">
+    <main className="min-h-screen text-white py-20 px-2">
       <div className="max-w-8xl mx-auto">
 
         {/* Hero */}
         <section className="text-center mb-24">
-          <Image src={'/logo.png'} height={'600'} width={'600'} className="m-auto mb-16"></Image>
+          <Image src={'/logo.png'} height={'600'} width={'600'} alt={'reduto dos loucos'} className="m-auto mb-16"></Image>
           <p className="text-zinc-300 text-lg md:text-xl max-w-2xl mx-auto">
             A comunidade onde estratégia, caos e amizade se encontram! Nos encontre no GTA RP e no CS2 agora mesmo!
           </p>

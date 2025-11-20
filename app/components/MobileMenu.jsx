@@ -7,41 +7,67 @@ export default function MobileMenu({ isAdmin }) {
     const [open, setOpen] = useState(false);
 
     return (
-        <>
+        <div>
             {/* Botão Mobile */}
             <button
-                className="md:hidden text-white text-3xl"
+                className="md:hidden text-white text-3xl transition-transform"
                 onClick={() => setOpen((prev) => !prev)}
             >
-                ☰
+                {open ? "✖" : "☰"}
             </button>
 
             {/* Menu Mobile */}
             <nav
-                className={`md:hidden bg-zinc-900/90 backdrop-blur border-t border-zinc-800 flex flex-col px-6 overflow-hidden transition-all duration-300 ${open ? "max-h-60 py-4" : "max-h-0 py-0"
-                    }`}
+                className={`md:hidden absolute left-0 right-0 top-16 mx-auto w-[90%] rounded-xl bg-zinc-900/95 backdrop-blur-xl border border-zinc-800 shadow-2xl transition-all duration-300 overflow-hidden
+                ${open ? "max-h-80 opacity-100" : "max-h-0 opacity-0"}
+            `}
             >
-                <Link href="/" className="py-2 hover:text-red-800">Home</Link>
+                <ul className="flex flex-col py-2">
+                    {/* ITEM */}
+                    <li>
+                        <Link
+                            href="/"
+                            className="block py-3 px-6 text-lg text-zinc-300 hover:text-white border-l-4 border-transparent hover:border-red-700 transition-all"
+                        >
+                            Home
+                        </Link>
+                    </li>
 
-                {isAdmin && (
-                    <Link href="/players" className="py-2 hover:text-red-800">
-                        Jogadores
-                    </Link>
-                )}
+                    {/* ADMIN ONLY */}
+                    {isAdmin && (
+                        <li>
+                            <Link
+                                href="/players"
+                                className="block py-3 px-6 text-lg text-zinc-300 hover:text-white border-l-4 border-transparent hover:border-red-700 transition-all"
+                            >
+                                Jogadores
+                            </Link>
+                        </li>
+                    )}
 
-                <Link href="/shuffle" className="py-2 hover:text-red-800">
-                    Sorteador de Times
-                </Link>
+                    {/* ITEM */}
+                    <li>
+                        <Link
+                            href="/shuffle"
+                            className="block py-3 px-6 text-lg text-zinc-300 hover:text-white border-l-4 border-transparent hover:border-red-700 transition-all"
+                        >
+                            Sorteador de Times
+                        </Link>
+                    </li>
 
-                <a
-                    href="https://discord.gg/q6WUSGZpSd"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="py-2 hover:text-red-800"
-                >
-                    Nosso Discord
-                </a>
+                    {/* ITEM */}
+                    <li>
+                        <a
+                            href="https://discord.gg/q6WUSGZpSd"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="block py-3 px-6 text-lg text-zinc-300 hover:text-white border-l-4 border-transparent hover:border-red-700 transition-all"
+                        >
+                            Nosso Discord
+                        </a>
+                    </li>
+                </ul>
             </nav>
-        </>
+        </div>
     );
 }

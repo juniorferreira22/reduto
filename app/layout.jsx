@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="pt-br">
-      <body className="bg-black text-white min-h-screen selection:text-white">
+      <body className="max-w-7xl mx-auto px-4 sm:px-2 lg:px-8 overflow-x-hidden">
 
         <header className="w-full bg-zinc-900/60 backdrop-blur shadow-lg fixed top-0 left-0 z-50">
           <div className="max-w-6xl mx-auto flex items-center justify-between px-6 h-25">
