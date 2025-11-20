@@ -1,15 +1,11 @@
 import "./styles/globals.css";
 import Link from "next/link";
 import Image from "next/image";
-import { cookies } from "next/headers";
 import { verifyAdmin } from "./lib/auth";
 import MobileMenu from "./components/MobileMenu";
 
 export default function RootLayout({ children }) {
-  const cookieStore = cookies();
-  const token = cookieStore.get("admin_token")?.value;
-
-  const isAdmin = verifyAdmin(token);
+  const isAdmin = verifyAdmin(); // ✔ sem argumentos
 
   return (
     <html lang="pt-br">
@@ -31,10 +27,7 @@ export default function RootLayout({ children }) {
               <Link href="/" className="hover:text-red-800 transition-colors">Home</Link>
 
               {isAdmin && (
-                <Link
-                  href="/players"
-                  className="hover:text-red-800 transition-colors"
-                >
+                <Link href="/players" className="hover:text-red-800 transition-colors">
                   Jogadores
                 </Link>
               )}
