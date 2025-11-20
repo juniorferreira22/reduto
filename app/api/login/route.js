@@ -2,29 +2,33 @@ import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
 export async function POST(req) {
-  const { username, password } = await req.json();
+  try {
+    const { username, password } = await req.json();
 
-  // valida usuário e senha do .env
-  if (
-    username === process.env.ADMIN_USER &&
-    password === process.env.ADMIN_PASS
-  ) {
+    if (
+      username !== process.env.ADMIN_USER ||
+      password !== process.env.ADMIN_PASS
+    ) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const token = jwt.sign({ role: "admin" }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
 
-    const response = NextResponse.json({ success: true });
+    const res = NextResponse.json({ ok: true });
 
-    response.cookies.set("admin_token", token, {
+    res.cookies.set("auth_token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: true,
+      sameSite: "lax",
       path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 7 dias
+      maxAge: 60 * 60 * 24 * 7,
     });
 
-    return response;
+    return res;
+  } catch (err) {
+    console.error("LOGIN ERROR:", err);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
-
-  return NextResponse.json({ error: "Credenciais inválidas" }, { status: 401 });
 }

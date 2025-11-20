@@ -1,14 +1,14 @@
 import jwt from "jsonwebtoken";
 
-export function verifyAdmin(token) {
-  if (!token) return false;
+export function verifyAdmin({ cookies }) {
+    try {
+        const token = cookies().get("auth_token")?.value;
+        if (!token) return false;
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        return decoded.role === "admin";
 
-    return decoded.role === "admin";
-  } catch (err) {
-    console.error("Erro ao validar token:", err);
-    return false;
-  }
+    } catch (error) {
+        return false;
+    }
 }
