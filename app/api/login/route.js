@@ -13,7 +13,7 @@ export async function POST(req) {
     }
 
     const token = jwt.sign({ role: "admin" }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
+      expiresIn: "1d",
     });
 
     const res = NextResponse.json({ ok: true });
