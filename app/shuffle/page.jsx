@@ -190,14 +190,14 @@ export default function ShufflePage() {
                                 {teamA.reduce((acc, p) => acc + p.tier, 0)}
                             </span>
                         </p>
-                        <div className="text-white p-4 px-8 m-auto bg-indigo-700">
+                        <div className="text-white p-4 px-8 m-auto">
                             <ButtonCT/>
                         </div>
                     </div>
 
                     {/* time B - TR */}
                     <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 shadow-xl">
-                        <h2 className="text-2xl font-bold mb-4 text-pink-400">Time B</h2>
+                        <h2 className="text-2xl font-bold mb-4 text-orange-400">Time B</h2>
                         <ul className="space-y-3">
                             {teamB.map((p) => (
                                 <li key={p._id} className="flex justify-between border-b border-zinc-800 pb-1 text-lg">
@@ -209,7 +209,7 @@ export default function ShufflePage() {
                         {/* mostra o total da soma dos tiers para demonstrar o balanceamento calculado */}
                         <p className="mt-5 text-gray-300 font-semibold text-xl">
                             Total:{" "}
-                            <span className="text-pink-400">
+                            <span className="text-orange-400">
                                 {teamB.reduce((acc, p) => acc + p.tier, 0)}
                             </span>
                         </p>
