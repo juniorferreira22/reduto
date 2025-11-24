@@ -213,7 +213,7 @@ export default function ShufflePage() {
                                 {teamB.reduce((acc, p) => acc + p.tier, 0)}
                             </span>
                         </p>
-                        <div className="text-white p-4 px-8 m-auto bg-pink-700">
+                        <div className="text-white p-4 px-8 m-auto">
                             <ButtonT/>
                         </div>
                     </div>
