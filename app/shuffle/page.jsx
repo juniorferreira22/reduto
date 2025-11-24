@@ -12,7 +12,7 @@ export default function ShufflePage() {
     const [error, setError] = useState("");
     const [search, setSearch] = useState("");
 
-    // Carrega os players do backend
+    // carrega os players do backend com useEffect
     useEffect(() => {
         async function load() {
             try {
@@ -35,12 +35,12 @@ export default function ShufflePage() {
         setSelected([...selected, player]);
     };
 
-    // Filtro
+    // pesquisa de players pelo nick
     const filteredPlayers = players.filter((p) =>
         p.nickname.toLowerCase().includes(search.toLowerCase())
     );
 
-    // Algoritmo
+    // algoritmo de balanceamento de times
     const shuffleBalanced = () => {
         setError("");
         setTeamA([]);
@@ -94,10 +94,8 @@ export default function ShufflePage() {
     return (
         <div className="p-5 md:p-10 max-w-5xl mx-auto text-white">
 
-            {/* Títulos */}
             <div className="text-center mb-8">
 
-                {/* <Image src={'/versus.png'} height={150} width={150} className="m-auto"></Image> */}
                 <h1 className="text-3xl md:text-4xl mt-8 font-extrabold tracking-wide">
                     SORTEADOR DE TIMES - MIX REDUTO DOS LOUCOS
                 </h1>
@@ -114,7 +112,7 @@ export default function ShufflePage() {
                 Cada jogador possui um tier que representa sua habilidade e experiência no jogo, de 1 (menor) a 5 (maior), garantindo partidas justas e competitivas.
             </p>
 
-            {/* Pesquisa */}
+            {/* pesquisa o player por nick */}
             <div className="flex justify-center mb-6 w-full">
                 <input
                     type="text"
@@ -126,7 +124,7 @@ export default function ShufflePage() {
                 />
             </div>
 
-            {/* Cards dos jogadores */}
+            {/* tabela que dispõe após os dados serem puxados do server */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-6">
                 {filteredPlayers.map((p) => {
                     const active = selected.find((s) => s._id === p._id);
@@ -157,7 +155,7 @@ export default function ShufflePage() {
                 <span className="text-indigo-400 font-bold">{selected.length}</span> / 10
             </p>
 
-            {/* Botão principal */}
+            {/* botão pra gerar times */}
             <div className="text-center mb-10">
                 <button
                     onClick={shuffleBalanced}
@@ -169,11 +167,11 @@ export default function ShufflePage() {
                 </button>
             </div>
 
-            {/* Resultados */}
+            {/* resultados depois da função de balanceamento dita acima */}
             {(teamA.length > 0 || teamB.length > 0) && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
 
-                    {/* Time A */}
+                    {/* time A - CT */}
                     <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 shadow-xl">
                         <h2 className="text-2xl font-bold mb-4 text-indigo-400">Time A</h2>
                         <ul className="space-y-3">
@@ -192,7 +190,7 @@ export default function ShufflePage() {
                         </p>
                     </div>
 
-                    {/* Time B */}
+                    {/* time B - TR */}
                     <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 shadow-xl">
                         <h2 className="text-2xl font-bold mb-4 text-pink-400">Time B</h2>
                         <ul className="space-y-3">
@@ -203,6 +201,7 @@ export default function ShufflePage() {
                                 </li>
                             ))}
                         </ul>
+                        {/* mostra o total da soma dos tiers para demonstrar o balanceamento calculado */}
                         <p className="mt-5 text-gray-300 font-semibold text-xl">
                             Total:{" "}
                             <span className="text-pink-400">

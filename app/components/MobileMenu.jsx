@@ -8,7 +8,6 @@ export default function MobileMenu({ isAdmin }) {
 
     return (
         <div>
-            {/* Botão Mobile */}
             <button
                 className="md:hidden text-white text-3xl transition-transform"
                 onClick={() => setOpen((prev) => !prev)}
@@ -16,14 +15,13 @@ export default function MobileMenu({ isAdmin }) {
                 {open ? "✖" : "☰"}
             </button>
 
-            {/* Menu Mobile */}
+            {/* menu de navegação */}
             <nav
                 className={`md:hidden absolute left-0 right-0 top-16 mx-auto w-[90%] rounded-xl bg-zinc-900/95 backdrop-blur-xl border border-zinc-800 shadow-2xl transition-all duration-300 overflow-hidden
                 ${open ? "max-h-80 opacity-100" : "max-h-0 opacity-0"}
             `}
             >
                 <ul className="flex flex-col py-2">
-                    {/* ITEM */}
                     <li>
                         <Link
                             href="/"
@@ -33,7 +31,7 @@ export default function MobileMenu({ isAdmin }) {
                         </Link>
                     </li>
 
-                    {/* ADMIN ONLY */}
+                    {/* somente visto pra quem é admin */}
                     {isAdmin && (
                         <li>
                             <Link
@@ -45,7 +43,6 @@ export default function MobileMenu({ isAdmin }) {
                         </li>
                     )}
 
-                    {/* ITEM */}
                     <li>
                         <Link
                             href="/shuffle"
@@ -55,7 +52,6 @@ export default function MobileMenu({ isAdmin }) {
                         </Link>
                     </li>
 
-                    {/* ITEM */}
                     <li>
                         <a
                             href="https://discord.gg/q6WUSGZpSd"

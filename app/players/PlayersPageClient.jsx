@@ -5,12 +5,12 @@ import PlayerModal from "../components/PlayerModal";
 import PlayerRow from "../components/PlayerRow";
 
 export default function PlayersPageClient() {
-    
+    // states
     const [players, setPlayers] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [editing, setEditing] = useState(null);
     const [search, setSearch] = useState('');
-
+    // funções
     async function fetchPlayers() {
         const res = await fetch('/api/players');
         const data = await res.json();
@@ -35,7 +35,7 @@ export default function PlayersPageClient() {
     }
 
     function handleSaved(saved) {
-        // atualizar a lista - substituir ou inserir
+        //  atualiza a lista de players
         setPlayers(prev => {
             const found = prev.find(p => p._id === saved._id);
             if (found) return prev.map(p => p._id === saved._id ? saved : p);
@@ -48,7 +48,7 @@ export default function PlayersPageClient() {
         <div>
             <section className="bg-zinc-900/40 p-8 rounded-xl mt-16 shadow-xl">
 
-                {/* Header */}
+                {/* header padrão do client */}
                 <div className="flex items-center justify-between mb-8">
                     <h2 className="text-3xl font-bold tracking-wide">Jogadores</h2>
 
@@ -63,7 +63,7 @@ export default function PlayersPageClient() {
                     </button>
                 </div>
 
-                {/* Pesquisa */}
+                {/* busca o player pelo nick */}
                 <div className="mb-6">
                     <input
                         type="text"
@@ -74,7 +74,7 @@ export default function PlayersPageClient() {
                     />
                 </div>
 
-                {/* Tabela */}
+                {/* retorna a tabela com os players (caso haja algum na database) */}
                 <div className="overflow-x-auto rounded-lg border border-zinc-800">
                     <table className="w-full text-left border-collapse bg-zinc-950/60">
                         <thead className="bg-zinc-800/60 border-b border-zinc-700">
@@ -100,7 +100,7 @@ export default function PlayersPageClient() {
                     </table>
                 </div>
 
-                {/* Modal */}
+                {/* modal para cadastro de player */}
                 <PlayerModal
                     open={modalOpen}
                     onClose={() => setModalOpen(false)}

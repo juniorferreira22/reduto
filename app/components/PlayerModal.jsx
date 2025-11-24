@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 
-
 export default function PlayerModal({ open, onClose, onSaved, initial }) {
     if (!open) return null;
 
@@ -24,7 +23,7 @@ export default function PlayerModal({ open, onClose, onSaved, initial }) {
         let saved;
 
         if (initial?._id) {
-            // Editando o vagabundo
+            //  put
             const res = await fetch("/api/players", {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -32,7 +31,7 @@ export default function PlayerModal({ open, onClose, onSaved, initial }) {
             });
             saved = await res.json();
         } else {
-            // Criando o vagabundo
+            // post
             const res = await fetch("/api/players", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -50,15 +49,14 @@ export default function PlayerModal({ open, onClose, onSaved, initial }) {
 
             <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-8 w-full max-w-md shadow-2xl animate-scaleIn">
 
-                {/* Título */}
                 <h3 className="text-2xl font-bold mb-6 text-center">
                     {initial ? "Editar Player" : "Cadastrar Player"}
                 </h3>
 
-                {/* Form */}
+                {/* formulario */}
                 <form onSubmit={handleSubmit} className="space-y-5">
 
-                    {/* Nickname */}
+                    {/* nick do jogador */}
                     <div className="flex flex-col">
                         <label className="mb-1 text-sm text-zinc-300">Nickname</label>
                         <input
@@ -69,7 +67,7 @@ export default function PlayerModal({ open, onClose, onSaved, initial }) {
                         />
                     </div>
 
-                    {/* Tier */}
+                    {/* tier do jogador (será calculado de acordo com o percentil das partidas em breve) */}
                     <div className="flex flex-col">
                         <label className="mb-1 text-sm text-zinc-300">Tier (1 a 5)</label>
                         <input
@@ -83,7 +81,7 @@ export default function PlayerModal({ open, onClose, onSaved, initial }) {
                         />
                     </div>
 
-                    {/* VIP */}
+                    {/* ativar ou desativar vip */}
                     <div className="flex flex-col">
                         <label className="mb-1 text-sm text-zinc-300">VIP?</label>
                         <label className="relative inline-flex items-center cursor-pointer">
@@ -98,7 +96,7 @@ export default function PlayerModal({ open, onClose, onSaved, initial }) {
                         </label>
                     </div>
 
-                    {/* Steam */}
+                    {/* link da steam */}
                     <div className="flex flex-col">
                         <label className="mb-1 text-sm text-zinc-300">Link do Perfil Steam</label>
                         <input
@@ -107,8 +105,7 @@ export default function PlayerModal({ open, onClose, onSaved, initial }) {
                             onChange={(e) => setSteamProfile(e.target.value)}
                         />
                     </div>
-
-                    {/* Botões */}
+                    
                     <div className="flex justify-end gap-3 pt-4">
                         <button
                             type="button"

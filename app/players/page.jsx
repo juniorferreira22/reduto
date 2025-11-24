@@ -6,10 +6,7 @@ import PlayersPageClient from "./PlayersPageClient";
 export default function PlayersPage() {
     const cookieStore = cookies();
     const token = cookieStore.get("admin_token")?.value;
-
-    console.log("TOKEN NO SERVER:", token);
-    console.log("VALIDAÇÃO:", verifyAdmin(token));
-
+    // verifica a token do jwt e se estiver vazia redireciona para a página de login
     if (!verifyAdmin(token)) {
         return redirect("/login");
     }

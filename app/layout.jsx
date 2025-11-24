@@ -5,7 +5,7 @@ import { verifyAdmin } from "./lib/auth";
 import MobileMenu from "./components/MobileMenu";
 
 export default function RootLayout({ children }) {
-  const isAdmin = verifyAdmin(); // ✔ sem argumentos
+  const isAdmin = verifyAdmin();
 
   return (
     <html lang="pt-br">
@@ -14,15 +14,15 @@ export default function RootLayout({ children }) {
         <header className="w-full bg-zinc-900/60 backdrop-blur shadow-lg fixed top-0 left-0 z-50">
           <div className="max-w-6xl mx-auto flex items-center justify-between px-6 h-25">
 
-            {/* Logo */}
+            {/* logo da reduto à esquerda */}
             <div className="flex md:scale-0.5">
               <Image src={'/logo nav.png'} height={50} width={400} alt="Logo" />
             </div>
 
-            {/* Mobile */}
+            {/* menu mobile */}
             <MobileMenu isAdmin={isAdmin} />
 
-            {/* Navbar Desktop */}
+            {/* menu pra desktop */}
             <nav className="hidden md:flex gap-6 text-sm md:text-base">
               <Link href="/" className="hover:text-red-800 transition-colors">Home</Link>
 

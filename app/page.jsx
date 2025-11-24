@@ -8,7 +8,7 @@ export default function Home() {
     <main className="min-h-screen text-white py-20 px-2">
       <div className="max-w-8xl mx-auto">
 
-        {/* Hero */}
+        {/* hero section */}
         <section className="text-center mb-24">
           <Image src={'/logo.png'} height={'600'} width={'600'} alt={'reduto dos loucos'} className="m-auto mb-16"></Image>
           <p className="text-zinc-300 text-lg md:text-xl max-w-2xl mx-auto">
@@ -26,7 +26,7 @@ export default function Home() {
 
         <div className="grid md:grid-cols-2 gap-4">
 
-          {/* Sobre o reduto */}
+          {/* about */}
           <section className="bg-[url(/logo.png)] bg-fixed backdrop-blur-sm rounded-xl p-8 border border-zinc-700 shadow-xl">
             <section className="backdrop-blur-sm backdrop-brightness-40 rounded-md p-4">
               <h2 className="text-3xl font-bold mb-4 ">O reduto</h2>
@@ -39,7 +39,7 @@ export default function Home() {
             </section>
           </section>
 
-          {/* GTARP */}
+          {/* gta rp */}
           <section className="bg-[url(/rp.jpg)] bg-fixed rounded-xl p-8 border border-zinc-700 shadow-xl">
             <section className="backdrop-blur-sm backdrop-brightness-40 rounded-md p-4">
               <h3 className="text-2xl font-bold mb-4">GTA RP</h3>

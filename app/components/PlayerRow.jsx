@@ -19,7 +19,7 @@ export default function PlayerRow({ player, onEdit, onDelete }) {
                             </svg>
                         </span>
                     </Link>
-                ) : 'Nada por aqui ainda'}
+                ) : '-'}
             </td>
             {player.vip ?
                 <td className='p-2 px-4 text-center text-green-500 font-bold'>Sim</td>
