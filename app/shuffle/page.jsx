@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import ButtonCT from "../components/ButtonCT";
+import ButtonT from "../components/ButtonT";
 
 export default function ShufflePage() {
     const [players, setPlayers] = useState([]);
@@ -188,6 +190,9 @@ export default function ShufflePage() {
                                 {teamA.reduce((acc, p) => acc + p.tier, 0)}
                             </span>
                         </p>
+                        <div className="text-white p-4 px-8 m-auto bg-indigo-700">
+                            <ButtonCT/>
+                        </div>
                     </div>
 
                     {/* time B - TR */}
@@ -208,6 +213,9 @@ export default function ShufflePage() {
                                 {teamB.reduce((acc, p) => acc + p.tier, 0)}
                             </span>
                         </p>
+                        <div className="text-white p-4 px-8 m-auto bg-pink-700">
+                            <ButtonT/>
+                        </div>
                     </div>
 
                 </div>
