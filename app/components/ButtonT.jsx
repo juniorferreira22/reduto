@@ -1,7 +1,10 @@
+import Link from "next/link";
+
 export default function ButtonT(){
+    const url = "steam://rungameid/730//+connect 177.54.146.23:27108 +password rdl@2025@ +jointeam T";
     return (
-        <button className="inline-block mt-8 bg-orange-600 hover:bg-orange-700 transition px-8 py-3 rounded-lg text-lg font-semibold shadow-lg">
+        <Link href={url} className="bg-orange-600 hover:bg-orange-700 transition px-8 py-3 rounded-lg text-lg font-semibold shadow-lg">
             Entrar no time TR
-        </button>
+        </Link>
     )
 }
