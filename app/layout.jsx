@@ -24,15 +24,15 @@ export default function RootLayout({ children }) {
 
             {/* menu pra desktop */}
             <nav className="hidden md:flex gap-6 text-sm md:text-base">
-              <Link href="/" className="hover:text-red-800 transition-colors">Home</Link>
+              <Link href="/" className="hover:text-white-800 hover:scale-120 hover:font-bold transition-all">Home</Link>
 
               {isAdmin && (
-                <Link href="/players" className="hover:text-red-800 transition-colors">
+                <Link href="/players" className="hover:text-white-800 hover:scale-120 hover:font-bold transition-all">
                   Jogadores
                 </Link>
               )}
 
-              <Link href="/shuffle" className="hover:text-red-800 transition-colors">
+              <Link href="/shuffle" className="hover:text-white-800 hover:scale-120 hover:font-bold transition-all">
                 Sorteador de Times
               </Link>
 
@@ -40,7 +40,7 @@ export default function RootLayout({ children }) {
                 href="https://discord.gg/q6WUSGZpSd"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-red-800 transition-colors"
+                className="hover:text-white-800 hover:scale-120 hover:font-bold transition-all"
               >
                 Nosso Discord
               </a>
@@ -48,7 +48,7 @@ export default function RootLayout({ children }) {
           </div>
         </header>
 
-        <main className="pt-28 px-6 pb-20 max-w-6xl mx-auto">
+        <main className="pt-20 px-6 pb-20 max-w-6xl mx-auto">
           {children}
         </main>
       </body>
