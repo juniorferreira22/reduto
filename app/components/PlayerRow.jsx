@@ -11,7 +11,7 @@ export default function PlayerRow({ player, onEdit, onDelete }) {
                 {player.steamProfile ? (
                     <Link href={player.steamProfile} target={"_blank"} rel={"noreferrer"} className='flex gap-2 items-center justify-center'>
                         <span>
-                            Acessar 
+                            Acessar
                         </span>
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4">

@@ -62,6 +62,28 @@ export default function Nav({ isAdmin }) {
                         Sorteador
                     </Link>
 
+                    {/* CS2 PAGE */}
+                    <Link
+                        href="/about/cs2"
+                        className={`
+                            transition-all hover:scale-[1.04]
+                            ${isActive("/about/cs2") ? "font-bold text-white" : "text-zinc-300 hover:text-white"}
+                        `}
+                    >
+                        CS2
+                    </Link>
+
+                    {/* GTA RP PAGE */}
+                    <Link
+                        href="/about/gta-rp"
+                        className={`
+                            transition-all hover:scale-[1.04]
+                            ${isActive("/about/gta-rp") ? "font-bold text-white" : "text-zinc-300 hover:text-white"}
+                        `}
+                    >
+                        GTA RP
+                    </Link>
+
                     <a
                         href="https://discord.gg/q6WUSGZpSd"
                         target="_blank"
@@ -70,6 +92,7 @@ export default function Nav({ isAdmin }) {
                     >
                         Discord
                     </a>
+                    
                 </nav>
             </div>
         </div>

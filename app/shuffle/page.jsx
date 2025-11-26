@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import ButtonJoin from "../components/ButtonJoin";
+import React, { Suspense } from "react";
 
 export default function ShufflePage() {
     const [players, setPlayers] = useState([]);
@@ -126,30 +127,32 @@ export default function ShufflePage() {
             </div>
 
             {/* tabela que dispõe após os dados serem puxados do server */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-6">
-                {filteredPlayers.map((p) => {
-                    const active = selected.find((s) => s._id === p._id);
-                    return (
-                        <button
-                            key={p._id}
-                            onClick={() => toggleSelect(p)}
-                            className={`p-5 rounded-xl border shadow-lg transition-all flex flex-col items-center text-center
-                                ${active
-                                    ? "bg-green-700 border-green-400 shadow-green-500/20 scale-[1.02]"
-                                    : "bg-zinc-800 border-zinc-700 hover:bg-zinc-700 hover:scale-[1.02]"
-                                }`}
-                        >
-                            <strong className="text-lg">{p.nickname}</strong>
-                            <br />
-                            <p className="text-sm text-gray-300">Tier {p.tier}</p>
-                            <br />
-                            <strong className="text-md flex text-center justify-center bg-blue-600 border border-blue-200 p-2 rounded-lg w-full">
-                                <a href={p.steamProfile} target={"_blank"}>Perfil Steam <Image src={'/steam.png'} height={20} width={20} className="m-auto"></Image></a>
-                            </strong>
-                        </button>
-                    );
-                })}
-            </div>
+            <Suspense fallback={<div className="">Carregando jogadores...</div>}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+                    {filteredPlayers.map((p) => {
+                        const active = selected.find((s) => s._id === p._id);
+                        return (
+                            <button
+                                key={p._id}
+                                onClick={() => toggleSelect(p)}
+                                className={`p-5 rounded-xl border shadow-lg transition-all flex flex-col items-center text-center
+                                    ${active
+                                        ? "bg-green-700 border-green-400 shadow-green-500/20 scale-[1.02]"
+                                        : "bg-zinc-800 border-zinc-700 hover:bg-zinc-700 hover:scale-[1.02]"
+                                    }`}
+                            >
+                                <strong className="text-lg">{p.nickname}</strong>
+                                <br />
+                                <p className="text-sm text-gray-300">Tier {p.tier}</p>
+                                <br />
+                                <strong className="text-md flex text-center justify-center bg-blue-600 border border-blue-200 p-2 rounded-lg w-full">
+                                    <a href={p.steamProfile} target={"_blank"}>Perfil Steam <Image src={'/steam.png'} height={20} width={20} className="m-auto"></Image></a>
+                                </strong>
+                            </button>
+                        );
+                    })}
+                </div>
+            </Suspense>
 
             <p className="text-center mb-8 font-medium text-lg">
                 Selecionados:{" "}
