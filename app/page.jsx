@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import InteractiveLogo from "./components/InteractiveLogo";
 
@@ -14,9 +13,9 @@ export default function Home() {
 
           <InteractiveLogo />
 
-          <p className="text-zinc-300 text-lg md:text-xl max-w-120 leading-relaxed mt-6">
-            A comunidade onde estratégia, loucura e amizade se encontram!
-            Nos encontre no GTA RP e CS2 agora mesmo!
+          <p className="text-zinc-300 text-lg md:text-xl max-w-140 leading-relaxed mt-6">
+            A comunidade onde estratégia, loucura e amizade se juntam! <br />
+            Se cadastre no nosso Discord agora mesmo clicando no botão abaixo!
           </p>
 
           <Link
@@ -30,10 +29,9 @@ export default function Home() {
           </Link>
         </section>
 
-        {/* nova grid dos cards */}
         <div className="grid gap-3 md:grid-cols-2">
 
-          {/* Liquid glass dos cards */}
+          {/* O Reduto */}
           <section
             className="rounded-2xl p-8 border border-white/5 bg-white/5 backdrop-blur-xl
               shadow-[0_0_2.1875rem_rgba(255,255,255,0.06)]
@@ -74,7 +72,7 @@ export default function Home() {
             </p>
           </section>
 
-          {/* CS2 — 2 colunas */}
+          {/* CS2 */}
           <section
             className="rounded-2xl p-8 border border-white/5 bg-white/5 backdrop-blur-xl
               shadow-[0_0_2.1875rem_rgba(255,255,255,0.06)]

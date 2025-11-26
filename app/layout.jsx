@@ -1,56 +1,31 @@
 import "./styles/globals.css";
-import Link from "next/link";
-import Image from "next/image";
 import { verifyAdmin } from "./lib/auth";
+import Nav from "./components/Nav";
 import MobileMenu from "./components/MobileMenu";
 
 export default function RootLayout({ children }) {
+
   const isAdmin = verifyAdmin();
 
   return (
     <html lang="pt-br">
-      <body className="max-w-7xl mx-auto px-4 sm:px-2 lg:px-8 overflow-x-hidden">
+      <body className="overflow-x-hidden bg-black text-white">
 
-        <header className="w-full bg-zinc-900/60 backdrop-blur shadow-lg fixed top-0 left-0 z-50">
-          <div className="max-w-6xl mx-auto flex items-center justify-between px-6 h-25">
+        <Nav isAdmin={isAdmin} />
+        {/* MOBILE MENU */}
+        <div className="md:hidden flex items-center justify-center">
+          <MobileMenu isAdmin={isAdmin} />
+        </div>
 
-            {/* logo da reduto à esquerda */}
-            <div className="flex md:scale-0.5">
-              <Image src={'/logo nav.png'} height={50} width={400} alt="Logo" />
-            </div>
-
-            {/* menu mobile */}
-            <MobileMenu isAdmin={isAdmin} />
-
-            {/* menu pra desktop */}
-            <nav className="hidden md:flex gap-6 text-sm md:text-base">
-              <Link href="/" className="hover:text-white-800 hover:scale-120 hover:font-bold transition-all">Home</Link>
-
-              {isAdmin && (
-                <Link href="/players" className="hover:text-white-800 hover:scale-120 hover:font-bold transition-all">
-                  Jogadores
-                </Link>
-              )}
-
-              <Link href="/shuffle" className="hover:text-white-800 hover:scale-120 hover:font-bold transition-all">
-                Sorteador de Times
-              </Link>
-
-              <a
-                href="https://discord.gg/q6WUSGZpSd"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-white-800 hover:scale-120 hover:font-bold transition-all"
-              >
-                Nosso Discord
-              </a>
-            </nav>
-          </div>
-        </header>
-
-        <main className="pt-20 px-6 pb-20 max-w-6xl mx-auto">
+        {/* CONTEÚDO */}
+        <main className="pt-20 max-w-6xl mx-auto px-4">
           {children}
         </main>
+        <footer>
+          <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 text-center text-sm text-white/50">
+            &copy; 2025 Junior Ferreira. Todos os direitos reservados.
+          </div>
+        </footer>
       </body>
     </html>
   );
