@@ -7,57 +7,41 @@ export default function MobileMenu({ isAdmin }) {
     const [open, setOpen] = useState(false);
 
     return (
-        <div>
-            <button
-                className="md:hidden text-white text-3xl transition-transform"
-                onClick={() => setOpen((prev) => !prev)}
-            >
-                {open ? "✖" : "☰"}
-            </button>
+        <div className="md:hidden fixed top-1.5 left-0 w-full z-50">
+            {/* botão hamburguer */}
+            <div className="flex justify-end items-center p-4">
+                <button
+                    className="text-white text-3xl active:scale-95 transition-transform"
+                    onClick={() => setOpen(prev => !prev)}
+                >
+                    {open ? "✖" : "☰"}
+                </button>
+            </div>
 
-            {/* menu de navegação */}
+            {/* NAV container */}
             <nav
-                className={`md:hidden absolute left-0 right-0 top-16 mx-auto w-[90%] rounded-xl bg-zinc-900/95 backdrop-blur-xl border border-zinc-800 shadow-2xl transition-all duration-300 overflow-hidden
-                ${open ? "max-h-80 opacity-100" : "max-h-0 opacity-0"}
+                className={`absolute left-0 top-16 w-full rounded-b-xl
+                bg-zinc-950/10 backdrop-blur-xl border-t border-zinc-800 
+                shadow-xl transition-all duration-300 overflow-hidden
+                ${open ? "max-h-[300px] opacity-100" : "max-h-0 opacity-0"}
             `}
             >
-                <ul className="flex flex-col py-2">
-                    <li>
-                        <Link
-                            href="/"
-                            className="block py-3 px-6 text-lg text-zinc-300 hover:text-white border-l-4 border-transparent hover:border-red-700 transition-all"
-                        >
-                            Home
-                        </Link>
-                    </li>
+                <ul className="flex flex-col p-2">
+                    <NavItem href="/">Home</NavItem>
 
-                    {/* somente visto pra quem é admin */}
                     {isAdmin && (
-                        <li>
-                            <Link
-                                href="/players"
-                                className="block py-3 px-6 text-lg text-zinc-300 hover:text-white border-l-4 border-transparent hover:border-red-700 transition-all"
-                            >
-                                Jogadores
-                            </Link>
-                        </li>
+                        <NavItem href="/players">Jogadores</NavItem>
                     )}
 
-                    <li>
-                        <Link
-                            href="/shuffle"
-                            className="block py-3 px-6 text-lg text-zinc-300 hover:text-white border-l-4 border-transparent hover:border-red-700 transition-all"
-                        >
-                            Sorteador de Times
-                        </Link>
-                    </li>
+                    <NavItem href="/shuffle">Sorteador de Times</NavItem>
 
                     <li>
                         <a
                             href="https://discord.gg/q6WUSGZpSd"
                             target="_blank"
                             rel="noreferrer"
-                            className="block py-3 px-6 text-lg text-zinc-300 hover:text-white border-l-4 border-transparent hover:border-red-700 transition-all"
+                            className="block py-3 px-6 text-lg text-zinc-300 hover:text-white
+                            border-l-4 border-transparent hover:border-red-600 transition-all"
                         >
                             Nosso Discord
                         </a>
@@ -65,5 +49,19 @@ export default function MobileMenu({ isAdmin }) {
                 </ul>
             </nav>
         </div>
+    );
+}
+
+function NavItem({ href, children }) {
+    return (
+        <li>
+            <Link
+                href={href}
+                className="block py-3 px-6 text-lg text-zinc-300 hover:text-white
+                border-l-4 border-transparent hover:border-red-600 transition-all"
+            >
+                {children}
+            </Link>
+        </li>
     );
 }

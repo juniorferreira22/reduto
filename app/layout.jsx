@@ -10,11 +10,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-br">
       <body className="overflow-x-hidden bg-black text-white">
-
-        <Nav isAdmin={isAdmin} />
-        {/* MOBILE MENU */}
-        <div className="md:hidden flex items-center justify-center">
-          <MobileMenu isAdmin={isAdmin} />
+        <div className="flex flex-row justify-between">
+          <Nav isAdmin={isAdmin} />
+          {/* MOBILE MENU */}
+          <div className="md:hidden flex items-center justify-center">
+            <MobileMenu isAdmin={isAdmin} />
+          </div>
         </div>
 
         {/* CONTEÚDO */}
