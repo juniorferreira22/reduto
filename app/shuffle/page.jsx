@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import ButtonJoin from "../components/ButtonJoin";
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 
 export default function ShufflePage() {
     const [players, setPlayers] = useState([]);
@@ -14,7 +14,6 @@ export default function ShufflePage() {
     const [error, setError] = useState("");
     const [search, setSearch] = useState("");
 
-    // carrega os players do backend com useEffect
     useEffect(() => {
         async function load() {
             try {
@@ -22,7 +21,7 @@ export default function ShufflePage() {
                 const data = await res.json();
                 setPlayers(data);
             } catch {
-                setError("Erro ao carregar jogadores.");
+                setError("❗ Erro ao carregar jogadores.");
             }
         }
         load();
@@ -37,12 +36,10 @@ export default function ShufflePage() {
         setSelected([...selected, player]);
     };
 
-    // pesquisa de players pelo nick
     const filteredPlayers = players.filter((p) =>
         p.nickname.toLowerCase().includes(search.toLowerCase())
     );
 
-    // algoritmo de balanceamento de times
     const shuffleBalanced = () => {
         setError("");
         setTeamA([]);
@@ -70,21 +67,20 @@ export default function ShufflePage() {
         };
 
         for (let i = 0; i < attempts; i++) {
-            const shuffled = randomShuffle(selected);
-            const team1 = shuffled.slice(0, 5);
-            const team2 = shuffled.slice(5, 10);
+            const s = randomShuffle(selected);
+            const t1 = s.slice(0, 5);
+            const t2 = s.slice(5, 10);
 
-            const sum1 = team1.reduce((acc, p) => acc + p.tier, 0);
-            const sum2 = team2.reduce((acc, p) => acc + p.tier, 0);
-
-            const diff = Math.abs(sum1 - sum2);
+            const diff = Math.abs(
+                t1.reduce((acc, p) => acc + p.tier, 0) -
+                t2.reduce((acc, p) => acc + p.tier, 0)
+            );
 
             if (diff < bestDiff) {
                 bestDiff = diff;
-                bestA = team1;
-                bestB = team2;
+                bestA = t1;
+                bestB = t2;
             }
-
             if (diff === 0) break;
         }
 
@@ -94,130 +90,188 @@ export default function ShufflePage() {
     };
 
     return (
-        <div className="p-5 md:p-10 max-w-5xl mx-auto text-white">
-
-            <div className="text-center mb-8">
-
-                <h1 className="text-3xl md:text-4xl mt-8 font-extrabold tracking-wide">
-                    SORTEADOR DE TIMES - MIX REDUTO DOS LOUCOS
+        <div className="p-6 md:p-10 max-w-5xl mx-auto text-white mb-28">
+            {/* Header */}
+            <div className="text-center mb-4">
+                <h1 className="text-2xl md:text-4xl font-bold tracking-wide">
+                    🎯 SORTEADOR DE TIMES
                 </h1>
+                <p className="text-zinc-400 mt-1 text-sm">
+                    Mix Reduto dos Loucos
+                </p>
             </div>
 
             {error && (
-                <div className="bg-red-700/80 border border-red-500 text-sm p-3 rounded mb-6 text-center">
+                <div className="bg-red-600/50 border border-red-400 text-sm p-3 rounded mb-6 text-center">
                     {error}
                 </div>
             )}
 
-            <p className="text-gray-300 max-w-6xl text-xs p-2 m-auto my-8 text-left md:text-lg">
-                Selecione exatamente <span className="text-yellow-400 font-semibold">10 jogadores</span> da lista abaixo. Os jogadores selecionados serão divididos em dois times balanceados com base no tier de cada um. <br /> <br />
-                Cada jogador possui um tier que representa sua habilidade e experiência no jogo, de 1 (menor) a 5 (maior), garantindo partidas justas e competitivas.
+            {/* cabecalho */}
+            <p className="text-gray-300 text-sm md:text-lg mb-6 leading-relaxed">
+                Selecione exatamente{" "}
+                <span className="text-yellow-400 font-semibold">10 jogadores</span>.
+                O sistema criará 2 times balanceados com base no Tier.
             </p>
 
-            {/* pesquisa o player por nick */}
-            <div className="flex justify-center mb-6 w-full">
+
+            {/* pesquisa */}
+            <div>
                 <input
                     type="text"
-                    placeholder="Pesquisar jogador..."
+                    placeholder="🔎 Pesquisar jogador por nickname..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-zinc-900/70 border border-zinc-700 text-white 
-                               placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-lg"
+                    className="w-full px-4 py-3 rounded-lg bg-zinc-900/70 border border-zinc-700 text-white 
+                    placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-lg"
                 />
             </div>
 
-            {/* tabela que dispõe após os dados serem puxados do server */}
-            <Suspense fallback={<div className="">Carregando jogadores...</div>}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+            <div className="my-5 flex justify-center">
+                <ButtonJoin />
+            </div>
+
+            {/* cards dos players */}
+            <Suspense fallback={<div>Carregando...</div>}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
                     {filteredPlayers.map((p) => {
-                        const active = selected.find((s) => s._id === p._id);
+                        const active = selected.some((s) => s._id === p._id);
                         return (
                             <button
                                 key={p._id}
                                 onClick={() => toggleSelect(p)}
-                                className={`p-5 rounded-xl border shadow-lg transition-all flex flex-col items-center text-center
+                                className={`pt-4 rounded-xl border backdrop-blur-sm
+                                    flex flex-col items-center text-center gap-1
+                                    transition-all duration-200 cursor-pointer
                                     ${active
-                                        ? "bg-green-700 border-green-400 shadow-green-500/20 scale-[1.02]"
-                                        : "bg-zinc-800 border-zinc-700 hover:bg-zinc-700 hover:scale-[1.02]"
-                                    }`}
+                                        ? "bg-zinc-900 border-green-400 shadow-[0_0_12px_#22c55e66]"
+                                        : "bg-zinc-800/60 border-zinc-700 hover:border-zinc-500 hover:bg-zinc-700/70"
+                                    }
+                                `}
                             >
-                                <strong className="text-lg">{p.nickname}</strong>
-                                <br />
-                                <p className="text-sm text-gray-300">Tier {p.tier}</p>
-                                <br />
-                                <strong className="text-md flex text-center justify-center bg-blue-600 border border-blue-200 p-2 rounded-lg w-full">
-                                    <a href={p.steamProfile} target={"_blank"}>Perfil Steam <Image src={'/steam.png'} height={20} width={20} className="m-auto"></Image></a>
-                                </strong>
+                                <span className=""></span>
+                                <span className="text-lg font-semibold">{p.nickname}</span>
+                                <span className="opacity-80 text-sm">Tier {p.tier}</span>
+
+                                <a
+                                    href={p.steamProfile}
+                                    target="_blank"
+                                    className="mt-2 w-full flex items-center justify-center gap-2 text-sm font-bold
+                                        bg-blue-600/90 hover:bg-blue-700 rounded-xl rounded-t-none py-4"
+                                >
+                                    Perfil Steam
+                                    <Image src="/steam.png" width={16} height={16} alt="Steam" />
+                                </a>
                             </button>
                         );
                     })}
                 </div>
             </Suspense>
 
-            <p className="text-center mb-8 font-medium text-lg">
-                Selecionados:{" "}
-                <span className="text-indigo-400 font-bold">{selected.length}</span> / 10
-            </p>
+            {/* barra de selecao e botao de sortear */}
+            <div className="fixed translate-x-1/4 w-2xl bottom-8 rounded-2xl border border-zinc-600 bg-indigo-500/20 backdrop-blur-lg p-4 px-8">
+                <div className="flex flex-col">
 
-            {/* botão pra gerar times */}
-            <div className="text-center mb-10">
-                <button
-                    onClick={shuffleBalanced}
-                    disabled={loading}
-                    className="bg-red-600 hover:bg-red-900 px-15 py-4 rounded-xl text-xl font-bold 
-                               shadow-xl disabled:opacity-40 transition-all active:scale-95"
-                >
-                    {loading ? "Gerando Times..." : "Gerar Times"}
-                </button>
+                    <div className="justify-between items-center mb-2">
+                        <p className="font-medium text-xl flex flex-row justify-between gap-2">
+                            <span>Selecionados:{" "}</span>
+                            <span>
+                                <span className="text-indigo-400 font-bold">{selected.length}</span>/10
+
+                            </span>
+                        </p>
+
+                        <div className="w-full h-3 mt-3 bg-zinc-700 rounded-full overflow-hidden">
+                            <div
+                                className="h-full bg-indigo-500 transition-all"
+                                style={{ width: `${selected.length * 10}%` }}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="flex flex-row w-full gap-2 text-center items-center justify-center my-2">
+                        <button
+                            onClick={() => setSelected([])}
+                            className="px-8 py-4 w-md rounded-xl text-xl font-bold bg-slate-600/30 border border-slate-400 backdrop-blur-xl hover:bg-slate-400
+                        shadow-md shadow-slate-600 disabled:opacity-40 active:scale-95 transition-all">
+                            {loading ? "" : "✖️ Limpar seleção"}
+                        </button>
+                        
+                        <button
+                            onClick={shuffleBalanced}
+                            disabled={loading}
+                            className="px-8 py-4 w-md rounded-xl text-xl font-bold bg-green-600/30 border border-green-600 backdrop-blur-xl hover:bg-green-700
+                        shadow-md shadow-green-600 disabled:opacity-40 active:scale-95 transition-all"
+                        >
+                            {loading ? "⏳ Gerando..." : "🔥 Gerar times"}
+                        </button>
+
+                        
+                    </div>
+                </div>
             </div>
 
-            {/* resultados depois da função de balanceamento dita acima */}
+
+            {/* resultados se o numero de players do dois times forem maior que zero */}
             {(teamA.length > 0 || teamB.length > 0) && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-
-                    {/* time A - CT */}
-                    <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 shadow-xl">
-                        <h2 className="text-2xl font-bold mb-4 text-indigo-400">Time A</h2>
-                        <ul className="space-y-3">
-                            {teamA.map((p) => (
-                                <li key={p._id} className="flex justify-between border-b border-zinc-800 pb-1 text-lg">
-                                    <span>{p.nickname}</span>
-                                    <span className="text-gray-300">Tier {p.tier}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <p className="mt-5 text-gray-300 font-semibold text-xl">
-                            Total:{" "}
-                            <span className="text-indigo-400">
-                                {teamA.reduce((acc, p) => acc + p.tier, 0)}
-                            </span>
-                        </p>
-                    </div>
-
-                    {/* time B - TR */}
-                    <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 shadow-xl">
-                        <h2 className="text-2xl font-bold mb-4 text-orange-400">Time B</h2>
-                        <ul className="space-y-3">
-                            {teamB.map((p) => (
-                                <li key={p._id} className="flex justify-between border-b border-zinc-800 pb-1 text-lg">
-                                    <span>{p.nickname}</span>
-                                    <span className="text-gray-300">Tier {p.tier}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        {/* mostra o total da soma dos tiers para demonstrar o balanceamento calculado */}
-                        <p className="mt-5 text-gray-300 font-semibold text-xl">
-                            Total:{" "}
-                            <span className="text-orange-400">
-                                {teamB.reduce((acc, p) => acc + p.tier, 0)}
-                            </span>
-                        </p>
-                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <TeamCardA title="Time A" list={teamA} />
+                    <TeamCardB title="Time B" list={teamB} />
                 </div>
             )}
-                <div className="m-auto mt-4 w-full flex text-center">
-                    <ButtonJoin></ButtonJoin>
-                </div>
+
+
+        </div>
+    );
+}
+
+function TeamCardA({ title, list }) {
+    const sum = list.reduce((acc, p) => acc + p.tier, 0);
+
+    return (
+        <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 shadow-lg">
+            <h2 className={`text-xl font-bold mb-4 text-blue-400`}>{title}</h2>
+            <ul className="space-y-2">
+                {list.map((p) => (
+                    <li
+                        key={p._id}
+                        className="flex justify-between pb-1 text-base border-b border-zinc-800/60"
+                    >
+                        <span>{p.nickname}</span>
+                        <span className="text-gray-300">Tier {p.tier}</span>
+                    </li>
+                ))}
+            </ul>
+
+            <p className="mt-4 text-gray-300 text-xl font-semibold">
+                Total:{" "}
+                <span className={`text-blue-400`}>{sum}</span>
+            </p>
+        </div>
+    );
+}
+function TeamCardB({ title, list }) {
+    const sum = list.reduce((acc, p) => acc + p.tier, 0);
+
+    return (
+        <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 shadow-lg">
+            <h2 className={`text-xl font-bold mb-4 text-orange-400`}>{title}</h2>
+            <ul className="space-y-2">
+                {list.map((p) => (
+                    <li
+                        key={p._id}
+                        className="flex justify-between pb-1 text-base border-b border-zinc-800/60"
+                    >
+                        <span>{p.nickname}</span>
+                        <span className="text-gray-300">Tier {p.tier}</span>
+                    </li>
+                ))}
+            </ul>
+
+            <p className="mt-4 text-gray-300 text-xl font-semibold">
+                Total:{" "}
+                <span className={`text-orange-400`}>{sum}</span>
+            </p>
         </div>
     );
 }
