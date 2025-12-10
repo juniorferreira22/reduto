@@ -130,7 +130,7 @@ export default function Home() {
               O resultado? Times equilibrados que garantem partidas emocionantes e cheias de reviravoltas. Acesse ele clickando abaixo:
               <br />
             </p>
-              <Link href="/shuffle" target="_blank" className="mt-4 text-center px-7 py-5 rounded-xl font-semibold text-lg bg-linear-to-r from-indigo-600 to-purple-600 hover:opacity-90 hover:scale-110 transition shadow-xl shadow-indigo-600/30">Acessar o sorteador de times 🎲</Link>
+              <Link href="/shuffle" target="_blank" className="mt-4 text-center px-7 py-5 rounded-xl font-semibold text-lg bg-linear-to-r from-indigo-600 to-purple-600 hover:opacity-90 hover:scale-102 transition shadow-xl shadow-indigo-600/30">Acessar o sorteador de times 🎲</Link>
           </section>
 
         </div>
