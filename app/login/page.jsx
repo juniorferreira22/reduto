@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import InteractiveLogo from "../components/InteractiveLogo";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -26,40 +27,56 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-black text-white">
-            <div className="bg-zinc-900 p-8 rounded-xl w-full max-w-sm shadow-xl">
-                <h1 className="text-2xl font-bold mb-6">Painel Administrativo</h1>
+        <div className="min-h-screen w-full grid lg:grid-cols-2 text-white ">
+            
+            <div className="flex justify-center px-6">
+                <div className="bg-white text-gray-800 p-16 py-24 shadow-2xl w-full max-w-md">
+                    
+                    <h1 className="text-3xl font-bold text-red-700 py-2">
+                        Seja bem-vindo(a)!
+                    </h1>
+                    <p className="text-gray-500 mt-1">
+                        Insira o login e senha para continuar.
+                    </p>
 
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    <input
-                        type="text"
-                        placeholder="Usuário"
-                        className="bg-zinc-800 p-3 rounded-lg border border-zinc-700"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
+                    <form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-8">
+                        <input
+                            type="text"
+                            placeholder="Usuário"
+                            className="bg-gray-100 p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-red-600 outline-none transition placeholder:text-gray-400"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
 
-                    <input
-                        type="password"
-                        placeholder="Senha"
-                        className="bg-zinc-800 p-3 rounded-lg border border-zinc-700"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+                        <input
+                            type="password"
+                            placeholder="Senha"
+                            className="bg-gray-100 p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-red-600 outline-none transition placeholder:text-gray-400"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
 
-                    {error && <p className="text-red-500 text-sm">{error}</p>}
+                        {error && (
+                            <p className="text-red-600 text-sm">{error}</p>
+                        )}
 
-                    <button className="bg-red-700 hover:bg-red-800 transition p-3 rounded-lg font-semibold">
-                        Entrar
+                        <button className="bg-red-600 hover:bg-red-400 transition p-3 rounded-lg shadow-lg shadow-red-400/30 font-semibold text-white cursor-pointer">
+                            Entrar
+                        </button>
+                    </form>
+
+                    <button
+                        onClick={() => router.push("/")}
+                        className="bg-white p-2 px-6 w-full rounded-lg shadow-lg font-semibold cursor-pointer shadow-red-400/30 mt-6 text-lg text-center text-red-600 hover:text-white hover:bg-red-600 transition"
+                    >
+                        Entrar como player
                     </button>
-                </form>
+                </div>
+            </div>
 
-                <button
-                    onClick={() => router.push("/")}
-                    className="mt-6 text-sm text-zinc-400 hover:text-white"
-                >
-                    Entrar como player →
-                </button>
+            {/* --- RIGHT AREA (LOGO / VISUAL) --- */}
+            <div className="hidden lg:flex items-center justify-center">
+                <InteractiveLogo className="max-w-md opacity-90" />
             </div>
         </div>
     );
