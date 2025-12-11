@@ -21,7 +21,7 @@ export default function LoginPage() {
         });
 
         if (res.ok) {
-            router.push("/players");
+            router.push("/adm/players");
         } else {
             setError("Usuário ou senha incorretos.");
         }

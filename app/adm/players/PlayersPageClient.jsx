@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import PlayerModal from "../components/PlayerModal";
-import PlayerRow from "../components/PlayerRow";
+import PlayerModal from "@/app/components/PlayerModal";
+import PlayerRow from "@/app/components/PlayerRow";
 
 export default function PlayersPageClient() {
     // states
