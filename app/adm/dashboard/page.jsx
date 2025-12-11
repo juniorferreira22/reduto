@@ -1,8 +1,14 @@
-export default function DashboardPage() {
-    return (
-        <div className="text-white mt-16">
-            <h1 className="text-4xl font-bold mb-6">Dashboard Administrativo</h1>
-            <p className="text-lg">Bem-vindo ao painel administrativo do Reduto!</p>
-        </div>
-    );
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { verifyAdmin } from "@/app/lib/auth";
+import DashboardPageClient from "./DashboardPageClient";
+
+export default function DashboardPageClient() {
+    const cookieStore = cookies();
+    const token = cookieStore.get("admin_token")?.value;
+    if (!verifyAdmin()) {
+        return redirect("/login");
+    }
+
+    return <DashboardPageClient />;
 }
