@@ -9,21 +9,21 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="pt-br">
-      <body className="overflow-x-hidden bg-black text-white">
-        <div className="flex flex-row justify-between">
+      <body className="">
+        <div className="">
           <Nav isAdmin={isAdmin} />
           {/* MOBILE MENU */}
-          <div className="md:hidden flex items-center justify-center">
+          <div className="">
             <MobileMenu isAdmin={isAdmin} />
           </div>
         </div>
-
+    
         {/* CONTEÚDO */}
-        <main className="pt-20 max-w-6xl mx-auto px-4">
+        <main className="">
           {children}
         </main>
-        <footer className="border-t border-white/10 py-6">
-          <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 text-center text-sm text-white/50">
+        <footer className="">
+          <div className="">
             &copy; 2025 Junior Ferreira. Todos os direitos reservados.
           </div>
         </footer>

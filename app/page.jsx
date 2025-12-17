@@ -7,29 +7,34 @@ export const metadata = { title: "Reduto dos Loucos" };
 export default function Home() {
   return (
     <main className="min-h-screen text-white py-16 px-4">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-[75vw] mx-auto">
 
-        {/* hero */}
-        <section className="flex flex-col items-center text-center mb-20">
+        <section className="flex flex-row justify-around items-center text-center mb-16 h-[75vh] gap-30">
 
-          <InteractiveLogo />
+          <div className="flex gap-3 flex-col w-[25vw]">
+            <p className="text-zinc-300 text-sm leading-relaxed text-justify mt-6">
+              A comunidade onde estratégia, loucura e amizade se juntam! <br />
+              Se cadastre no nosso Discord agora mesmo clicando no botão abaixo!
+            </p>
 
-          <p className="text-zinc-300 text-lg md:text-xl max-w-140 leading-relaxed mt-6">
-            A comunidade onde estratégia, loucura e amizade se juntam! <br />
-            Se cadastre no nosso Discord agora mesmo clicando no botão abaixo!
-          </p>
-
-          <Link
-            href="https://discord.gg/q6WUSGZpSd"
-            target="_blank"
-            className="mt-8 px-7 py-3 rounded-xl font-semibold text-lg
+            <Link
+              href="https://discord.gg/q6WUSGZpSd"
+              target="_blank"
+              className="mt-8 px-7 py-3 rounded-xl font-semibold text-md
               bg-linear-to-r from-indigo-600 to-purple-600 hover:opacity-90 hover:scale-110 transition
               shadow-xl shadow-indigo-600/30"
-          >
-            🚀 Entre no nosso Discord!
-          </Link>
+            >
+              🚀 Entre no nosso Discord!
+            </Link>
+          </div>
+          <div>
+            <InteractiveLogo/>
+          </div>
         </section>
 
+          <div className="fixed left-0 top-50">
+            Em breve
+          </div>
         <div className="grid gap-3 md:grid-cols-2">
 
           {/* O Reduto */}
@@ -130,7 +135,7 @@ export default function Home() {
               O resultado? Times equilibrados que garantem partidas emocionantes e cheias de reviravoltas. Acesse ele clickando abaixo:
               <br />
             </p>
-              <Link href="/shuffle" target="_blank" className="mt-4 text-center px-7 py-5 rounded-xl font-semibold text-lg bg-linear-to-r from-indigo-600 to-purple-600 hover:opacity-90 hover:scale-102 transition shadow-xl shadow-indigo-600/30">Acessar o sorteador de times 🎲</Link>
+            <Link href="/shuffle" target="_blank" className="mt-4 text-center px-7 py-5 rounded-xl font-semibold text-lg bg-linear-to-r from-indigo-600 to-purple-600 hover:opacity-90 hover:scale-102 transition shadow-xl shadow-indigo-600/30">Acessar o sorteador de times 🎲</Link>
           </section>
 
         </div>

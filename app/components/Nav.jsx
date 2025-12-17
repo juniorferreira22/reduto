@@ -10,32 +10,27 @@ export default function Nav({ isAdmin }) {
 
     return (
         <div className="
-            fixed top-0 left-0 w-full z-50 
-            bg-black/40 backdrop-blur-xl 
-            border-b border-white/10
+            fixed top-6 left-0 w-full z-50 border-white/10 flex flex-row items-center
         ">
-            <div className="max-w-6xl mx-auto px-4 lg:px-6 flex items-center h-20 justify-between">
+            <div className="flex flex-row items-center justify-between w-full px-6">
 
                 {/* LOGO */}
-                <Link href="/" className="flex items-center gap-2 shrink-0">
+                <Link href="/">
                     <Image
                         src="/logo nav.png"
-                        width={300}
+                        width={200}
                         height={80}
                         alt="Logo Reduto"
-                        className="opacity-90 hover:opacity-100 transition"
+                        className="max-w-[20vw] md:max-w-[7vw]"
                     />
                 </Link>
 
                 {/* DESKTOP MENU */}
-                <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+                <nav className="flex flex-row gap-6">
                     
                     <Link
                         href="/"
-                        className={`
-                            transition-all hover:scale-[1.04]
-                            ${isActive("/") ? "font-bold text-white" : "text-zinc-300 hover:text-white"}
-                        `}
+                        className={isActive("/") ? "font-bold" : ""}
                     >
                         Home
                     </Link>
@@ -43,10 +38,7 @@ export default function Nav({ isAdmin }) {
                     {isAdmin && (
                         <Link
                             href="/players"
-                            className={`
-                                transition-all hover:scale-[1.04]
-                                ${isActive("/players") ? "font-bold text-white" : "text-zinc-300 hover:text-white"}
-                            `}
+                            className={isActive("/players") ? "font-bold" : ""}
                         >
                             Jogadores
                         </Link>
@@ -54,10 +46,7 @@ export default function Nav({ isAdmin }) {
 
                     <Link
                         href="/shuffle"
-                        className={`
-                            transition-all hover:scale-[1.04]
-                            ${isActive("/shuffle") ? "font-bold text-white" : "text-zinc-300 hover:text-white"}
-                        `}
+                        className={isActive("/shuffle") ? "font-bold" : ""}
                     >
                         Sorteador
                     </Link>
@@ -65,10 +54,7 @@ export default function Nav({ isAdmin }) {
                     {/* CS2 PAGE */}
                     <Link
                         href="/about/cs2"
-                        className={`
-                            transition-all hover:scale-[1.04]
-                            ${isActive("/about/cs2") ? "font-bold text-white" : "text-zinc-300 hover:text-white"}
-                        `}
+                        className={isActive("/about/cs2") ? "font-bold" : ""}
                     >
                         CS2
                     </Link>
@@ -76,10 +62,7 @@ export default function Nav({ isAdmin }) {
                     {/* GTA RP PAGE */}
                     <Link
                         href="/about/gta-rp"
-                        className={`
-                            transition-all hover:scale-[1.04]
-                            ${isActive("/about/gta-rp") ? "font-bold text-white" : "text-zinc-300 hover:text-white"}
-                        `}
+                        className={isActive("/about/gta-rp") ? "font-bold" : ""}
                     >
                         GTA RP
                     </Link>
@@ -88,12 +71,16 @@ export default function Nav({ isAdmin }) {
                         href="https://discord.gg/q6WUSGZpSd"
                         target="_blank"
                         rel="noreferrer"
-                        className="text-indigo-300 hover:text-indigo-400 transition-all hover:scale-[1.04]"
+                        className=""
                     >
                         Discord
                     </a>
                     
                 </nav>
+
+                <div>
+                    <p>Futuramente</p>
+                </div>
             </div>
         </div>
     );

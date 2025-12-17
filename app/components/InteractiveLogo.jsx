@@ -33,12 +33,12 @@ export default function InteractiveLogo() {
           transition: "transform 0.18s ease-out",
         }}
       >
-        <Image
+        <img
           src="/logo.png"
-          height={400}
-          width={400}
+          height="100%"
+          width="100%"
           alt="reduto dos loucos logo"
-          className="opacity-90"
+          className="opacity-90 h-auto w-[37.5vw] my-auto"
           priority
         />
       </div>
