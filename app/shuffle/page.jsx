@@ -11,6 +11,7 @@ export default function ShufflePage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [search, setSearch] = useState("");
+    const targetElement = document.getElementById('teams');
 
     useEffect(() => {
         async function load() {
@@ -85,16 +86,19 @@ export default function ShufflePage() {
         setTeamA(bestA);
         setTeamB(bestB);
         setLoading(false);
+        targetElement.scrollIntoView({
+            behavior: 'smooth'
+        });
     };
 
     return (
         <div className="min-h-screen bg-black text-white">
             {/* Hero Section */}
             <section className="relative py-24 overflow-hidden">
-                
+
                 <div className="absolute inset-0 bg-linear-to-b from-purple-900/20 via-black to-black" />
-                
-               
+
+
                 <div className="absolute inset-0 opacity-20">
                     <div className="absolute inset-0" style={{
                         backgroundImage: `linear-linear(rgba(139, 92, 246, 0.3) 1px, transparent 1px),
@@ -177,7 +181,7 @@ export default function ShufflePage() {
                                             : "bg-linear-to-r from-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100"
                                         }
                                     `} />
-                                    
+
                                     {/* Card content */}
                                     <div className={`relative bg-zinc-900/50 backdrop-blur-xl rounded-2xl border transition-all duration-300
                                         ${active
@@ -193,7 +197,7 @@ export default function ShufflePage() {
                                                     </svg>
                                                 </div>
                                             )}
-                                            
+
                                             <h3 className="text-xl font-bold mb-2">{p.nickname}</h3>
                                             <div className="inline-block px-4 py-1 rounded-full bg-purple-500/20 border border-purple-500/30">
                                                 <span className="text-purple-400 font-semibold">Tier {p.tier}</span>
@@ -210,7 +214,7 @@ export default function ShufflePage() {
                                         >
                                             Perfil Steam
                                             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.002 19.323a7.322 7.322 0 01-5.476-12.477l3.825 1.58a2.01 2.01 0 011.163 1.85 2.011 2.011 0 01-2.01 2.01 2.012 2.012 0 01-1.163-.368l-3.825-1.58a7.322 7.322 0 0010.486 5.985 7.322 7.322 0 00-3-14z"/>
+                                                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.002 19.323a7.322 7.322 0 01-5.476-12.477l3.825 1.58a2.01 2.01 0 011.163 1.85 2.011 2.011 0 01-2.01 2.01 2.012 2.012 0 01-1.163-.368l-3.825-1.58a7.322 7.322 0 0010.486 5.985 7.322 7.322 0 00-3-14z" />
                                             </svg>
                                         </a>
                                     </div>
@@ -238,11 +242,10 @@ export default function ShufflePage() {
 
                         <div className="w-full h-3 bg-zinc-800 rounded-full overflow-hidden">
                             <div
-                                className={`h-full transition-all duration-500 ${
-                                    selected.length === 10 
-                                        ? "bg-linear-to-r from-green-500 to-emerald-500" 
+                                className={`h-full transition-all duration-500 ${selected.length === 10
+                                        ? "bg-linear-to-r from-green-500 to-emerald-500"
                                         : "bg-linear-to-r from-purple-500 to-pink-500"
-                                }`}
+                                    }`}
                                 style={{ width: `${selected.length * 10}%` }}
                             />
                         </div>
@@ -258,7 +261,7 @@ export default function ShufflePage() {
                             >
                                 ✖️ Limpar
                             </button>
-                            
+
                             <button
                                 onClick={shuffleBalanced}
                                 disabled={loading || selected.length !== 10}
@@ -285,7 +288,7 @@ export default function ShufflePage() {
                         <p className="text-zinc-400 text-xl">Times gerados com sucesso!</p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-8">
+                    <div id="teams" className="grid md:grid-cols-2 gap-8">
                         <TeamCard title="TIME A" list={teamA} color="blue" />
                         <TeamCard title="TIME B" list={teamB} color="orange" />
                     </div>
@@ -297,7 +300,7 @@ export default function ShufflePage() {
 
 function TeamCard({ title, list, color }) {
     const sum = list.reduce((acc, p) => acc + p.tier, 0);
-    
+
     const colorClasses = {
         blue: {
             linear: "from-blue-600/20 to-cyan-600/20",
@@ -319,11 +322,11 @@ function TeamCard({ title, list, color }) {
         <div className="relative group">
             {/* Glow effect */}
             <div className={`absolute inset-0 bg-linear-to-r ${colors.linear} rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100`} />
-            
+
             {/* Card */}
             <div className={`relative bg-zinc-900/50 backdrop-blur-xl rounded-3xl border ${colors.border} p-8 ${colors.glow} shadow-xl`}>
                 <h3 className={`text-3xl font-black mb-8 ${colors.text}`}>{title}</h3>
-                
+
                 <div className="space-y-4 mb-8">
                     {list.map((p, idx) => (
                         <div

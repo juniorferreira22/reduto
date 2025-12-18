@@ -53,13 +53,6 @@ export default function Nav({ isAdmin }) {
                             Discord
                         </a>
                     </nav>
-
-                    {/* MOBILE MENU PLACEHOLDER */}
-                    <div className="md:hidden">
-                        <div className="px-4 py-2 rounded-lg bg-zinc-800/50 border border-white/10 backdrop-blur-xl">
-                            <span className="text-xs text-zinc-400 font-medium">Em breve</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
