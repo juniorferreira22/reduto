@@ -45,7 +45,7 @@ export default function Nav({ isAdmin }) {
                             href="/players"
                             className={`
                                 transition-all hover:scale-[1.04]
-                                ${isActive("/players") ? "font-bold text-white" : "text-zinc-300 hover:text-white"}
+                                ${isActive("/adm/players") ? "font-bold text-white" : "text-zinc-300 hover:text-white"}
                             `}
                         >
                             Jogadores
