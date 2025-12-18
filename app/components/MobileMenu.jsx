@@ -7,11 +7,11 @@ export default function MobileMenu({ isAdmin }) {
     const [open, setOpen] = useState(false);
 
     return (
-        <div className="md:hidden fixed top-1.5 left-0 w-full z-50">
+        <div className="md:hidden fixed w-full z-50">
             {/* botão hamburguer */}
             <div className="flex justify-end items-center p-4">
                 <button
-                    className="text-white text-3xl active:scale-95 transition-transform"
+                    className="text-white text-3xl items-center active:scale-95 transition-transform"
                     onClick={() => setOpen(prev => !prev)}
                 >
                     {open ? "✖" : "☰"}

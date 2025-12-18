@@ -10,13 +10,13 @@ export default function Nav({ isAdmin }) {
 
     return (
         <div className="fixed top-0 left-0 w-full z-50 py-4">
-            {/* Backdrop blur background */}
+
             <div className="absolute inset-0 bg-black/60 backdrop-blur-xl border-b border-white/10" />
 
             <div className="relative max-w-7xl mx-auto px-6">
                 <div className="flex items-center justify-between">
 
-                    {/* LOGO */}
+                   
                     <Link href="/" className="relative group">
                         <div className="absolute inset-0 bg-linear-to-r from-purple-600/20 to-pink-600/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         <h3 className="bg-linear-to-r font-extrabold text-xl from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent">
@@ -30,7 +30,7 @@ export default function Nav({ isAdmin }) {
                         </h3>
                     </Link>
 
-                    {/* DESKTOP MENU */}
+                 
                     <nav className="hidden md:flex items-center gap-2">
                         <NavLink href="/" isActive={isActive("/")} label="HOME" />
 
@@ -70,7 +70,7 @@ function NavLink({ href, isActive, label }) {
                 }
             `}
         >
-            {/* Active indicator background */}
+          
             {isActive && (
                 <>
                     <div className="absolute inset-0 bg-linear-to-r from-purple-600/20 to-pink-600/20 rounded-full blur-md" />
@@ -78,7 +78,7 @@ function NavLink({ href, isActive, label }) {
                 </>
             )}
 
-            {/* Hover effect */}
+     
             <div className={`absolute inset-0 bg-white/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300
                 ${isActive ? "hidden" : ""}
             `} />
