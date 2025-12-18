@@ -35,7 +35,7 @@ export default function Nav({ isAdmin }) {
                         <NavLink href="/" isActive={isActive("/")} label="HOME" />
 
                         {isAdmin && (
-                            <NavLink href="/players" isActive={isActive("/players")} label="JOGADORES" />
+                            <NavLink href="/adm/players" isActive={isActive("/adm/players")} label="JOGADORES" />
                         )}
 
                         <NavLink href="/shuffle" isActive={isActive("/shuffle")} label="SORTEADOR" />
