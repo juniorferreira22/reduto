@@ -22,11 +22,11 @@ export default function RootLayout({ children }) {
         <main className="">
           {children}
         </main>
-        <footer className="">
-          <div className="">
-            &copy; 2025 Junior Ferreira. Todos os direitos reservados.
-          </div>
-        </footer>
+        <footer className="bg-black border-t border-white/10 py-12">
+        <div className="max-w-7xl mx-auto px-6 text-center text-zinc-500">
+          <p>© 2025 Junior Ferreira. Todos os direitos reservados.</p>
+        </div>
+      </footer>
       </body>
     </html>
   );

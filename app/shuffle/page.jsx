@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import ButtonJoin from "../components/ButtonJoin";
 import { Suspense } from "react";
 
 export default function ShufflePage() {
@@ -90,188 +88,269 @@ export default function ShufflePage() {
     };
 
     return (
-        <div className="p-6 md:p-10 max-w-5xl mx-auto text-white mb-28">
-            {/* Header */}
-            <div className="text-center mb-4">
-                <h1 className="text-2xl md:text-4xl font-bold tracking-wide">
-                    🎯 SORTEADOR DE TIMES
-                </h1>
-                <p className="text-zinc-400 mt-1 text-sm">
-                    Mix Reduto dos Loucos
-                </p>
-            </div>
-
-            {error && (
-                <div className="bg-red-600/50 border border-red-400 text-sm p-3 rounded mb-6 text-center">
-                    {error}
+        <div className="min-h-screen bg-black text-white">
+            {/* Hero Section */}
+            <section className="relative py-24 overflow-hidden">
+                
+                <div className="absolute inset-0 bg-linear-to-b from-purple-900/20 via-black to-black" />
+                
+               
+                <div className="absolute inset-0 opacity-20">
+                    <div className="absolute inset-0" style={{
+                        backgroundImage: `linear-linear(rgba(139, 92, 246, 0.3) 1px, transparent 1px),
+                                         linear-linear(90deg, rgba(139, 92, 246, 0.3) 1px, transparent 1px)`,
+                        backgroundSize: '50px 50px'
+                    }} />
                 </div>
-            )}
 
-            {/* cabecalho */}
-            <p className="text-gray-300 text-sm md:text-lg mb-6 leading-relaxed">
-                Selecione exatamente{" "}
-                <span className="text-yellow-400 font-semibold">10 jogadores</span>.
-                O sistema criará 2 times balanceados com base no Tier.
-            </p>
-
-
-            {/* pesquisa */}
-            <div>
-                <input
-                    type="text"
-                    placeholder="🔎 Pesquisar jogador por nickname..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="w-full px-4 py-3 rounded-lg bg-zinc-900/70 border border-zinc-700 text-white 
-                    placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-lg"
-                />
-            </div>
-
-            <div className="my-5 flex justify-center">
-                <ButtonJoin />
-            </div>
-
-            {/* cards dos players */}
-            <Suspense fallback={<div>Carregando...</div>}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-                    {filteredPlayers.map((p) => {
-                        const active = selected.some((s) => s._id === p._id);
-                        return (
-                            <button
-                                key={p._id}
-                                onClick={() => toggleSelect(p)}
-                                className={`pt-4 rounded-xl border backdrop-blur-sm
-                                    flex flex-col items-center text-center gap-1
-                                    transition-all duration-200 cursor-pointer
-                                    ${active
-                                        ? "bg-zinc-900 border-green-400 shadow-[0_0_12px_#22c55e66]"
-                                        : "bg-zinc-800/60 border-zinc-700 hover:border-zinc-500 hover:bg-zinc-700/70"
-                                    }
-                                `}
-                            >
-                                <span className=""></span>
-                                <span className="text-lg font-semibold">{p.nickname}</span>
-                                <span className="opacity-80 text-sm">Tier {p.tier}</span>
-
-                                <a
-                                    href={p.steamProfile}
-                                    target="_blank"
-                                    className="mt-2 w-full flex items-center justify-center gap-2 text-sm font-bold
-                                        bg-blue-600/90 hover:bg-blue-700 rounded-xl rounded-t-none py-4"
-                                >
-                                    Perfil Steam
-                                    <Image src="/steam.png" width={16} height={16} alt="Steam" />
-                                </a>
-                            </button>
-                        );
-                    })}
-                </div>
-            </Suspense>
-
-            {/* barra de selecao e botao de sortear */}
-            <div className="fixed translate-x-1/4 w-2xl bottom-8 rounded-2xl border border-zinc-600 bg-indigo-500/20 backdrop-blur-lg p-4 px-8">
-                <div className="flex flex-col">
-
-                    <div className="justify-between items-center mb-2">
-                        <p className="font-medium text-xl flex flex-row justify-between gap-2">
-                            <span>Selecionados:{" "}</span>
-                            <span>
-                                <span className="text-indigo-400 font-bold">{selected.length}</span>/10
-
+                <div className="relative z-10 max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-12">
+                        <h1 className="text-6xl md:text-8xl font-black mb-6 tracking-tight">
+                            <span className="bg-linear-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent">
+                                SORTEADOR
                             </span>
+                            <br />
+                            <span className="text-white">DE TIMES</span>
+                        </h1>
+                        <p className="text-xl text-zinc-400 font-light">
+                            Mix Reduto dos Loucos
                         </p>
+                    </div>
 
-                        <div className="w-full h-3 mt-3 bg-zinc-700 rounded-full overflow-hidden">
-                            <div
-                                className="h-full bg-indigo-500 transition-all"
-                                style={{ width: `${selected.length * 10}%` }}
+                    {error && (
+                        <div className="max-w-2xl mx-auto mb-8 bg-red-500/10 border border-red-500/50 rounded-2xl p-6 text-center backdrop-blur-xl">
+                            <p className="text-red-400 text-lg font-semibold">{error}</p>
+                        </div>
+                    )}
+
+                    <div className="max-w-2xl mx-auto mb-12">
+                        <p className="text-zinc-300 text-lg leading-relaxed text-center">
+                            Selecione exatamente{" "}
+                            <span className="text-purple-400 font-bold">10 jogadores</span>.
+                            <br />
+                            O sistema criará 2 times balanceados com base no Tier.
+                        </p>
+                    </div>
+
+                    {/* Search Bar */}
+                    <div className="max-w-2xl mx-auto mb-8">
+                        <div className="relative group">
+                            <div className="absolute inset-0 bg-linear-to-r from-purple-600/20 to-pink-600/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100" />
+                            <input
+                                type="text"
+                                placeholder="🔎 Pesquisar jogador por nickname..."
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                className="relative w-full px-6 py-5 rounded-2xl bg-zinc-900/50 border border-white/10 text-white text-lg
+                                placeholder-zinc-500 focus:outline-none focus:border-purple-500/50 backdrop-blur-xl transition-all"
                             />
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <div className="flex flex-row w-full gap-2 text-center items-center justify-center my-2">
-                        <button
-                            onClick={() => setSelected([])}
-                            className="px-8 py-4 w-md rounded-xl text-xl font-bold bg-slate-600/30 border border-slate-400 backdrop-blur-xl hover:bg-slate-400
-                        shadow-md shadow-slate-600 disabled:opacity-40 active:scale-95 transition-all">
-                            {loading ? "" : "✖️ Limpar seleção"}
-                        </button>
-                        
-                        <button
-                            onClick={shuffleBalanced}
-                            disabled={loading}
-                            className="px-8 py-4 w-md rounded-xl text-xl font-bold bg-green-600/30 border border-green-600 backdrop-blur-xl hover:bg-green-700
-                        shadow-md shadow-green-600 disabled:opacity-40 active:scale-95 transition-all"
-                        >
-                            {loading ? "⏳ Gerando..." : "🔥 Gerar times"}
-                        </button>
+            {/* Players Grid */}
+            <div className="max-w-7xl mx-auto px-6 pb-48">
+                <Suspense fallback={
+                    <div className="text-center py-20">
+                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent" />
+                    </div>
+                }>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {filteredPlayers.map((p) => {
+                            const active = selected.some((s) => s._id === p._id);
+                            return (
+                                <button
+                                    key={p._id}
+                                    onClick={() => toggleSelect(p)}
+                                    className={`relative group overflow-hidden rounded-2xl transition-all duration-300
+                                        ${active
+                                            ? "scale-105"
+                                            : "hover:scale-105"
+                                        }
+                                    `}
+                                >
+                                    {/* Glow effect */}
+                                    <div className={`absolute inset-0 rounded-2xl blur-xl transition-all duration-500
+                                        ${active
+                                            ? "bg-linear-to-r from-green-600/40 to-emerald-600/40 opacity-100"
+                                            : "bg-linear-to-r from-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100"
+                                        }
+                                    `} />
+                                    
+                                    {/* Card content */}
+                                    <div className={`relative bg-zinc-900/50 backdrop-blur-xl rounded-2xl border transition-all duration-300
+                                        ${active
+                                            ? "border-green-500/50 shadow-lg shadow-green-500/20"
+                                            : "border-white/5 group-hover:border-white/20"
+                                        }
+                                    `}>
+                                        <div className="p-6 text-center">
+                                            {active && (
+                                                <div className="absolute top-3 right-3 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                                                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                                    </svg>
+                                                </div>
+                                            )}
+                                            
+                                            <h3 className="text-xl font-bold mb-2">{p.nickname}</h3>
+                                            <div className="inline-block px-4 py-1 rounded-full bg-purple-500/20 border border-purple-500/30">
+                                                <span className="text-purple-400 font-semibold">Tier {p.tier}</span>
+                                            </div>
+                                        </div>
 
-                        
+                                        <a
+                                            href={p.steamProfile}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            onClick={(e) => e.stopPropagation()}
+                                            className="block w-full py-4 bg-blue-600/20 hover:bg-blue-600/30 border-t border-white/5 rounded-b-2xl
+                                            text-blue-400 font-semibold transition-colors items-center justify-center gap-2"
+                                        >
+                                            Perfil Steam
+                                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.002 19.323a7.322 7.322 0 01-5.476-12.477l3.825 1.58a2.01 2.01 0 011.163 1.85 2.011 2.011 0 01-2.01 2.01 2.012 2.012 0 01-1.163-.368l-3.825-1.58a7.322 7.322 0 0010.486 5.985 7.322 7.322 0 00-3-14z"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </button>
+                            );
+                        })}
+                    </div>
+                </Suspense>
+            </div>
+
+            {/* Fixed Bottom Bar */}
+            <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-black/80 backdrop-blur-xl">
+                <div className="max-w-4xl mx-auto px-6 py-6">
+                    <div className="flex flex-col gap-4">
+                        {/* Progress */}
+                        <div className="flex items-center justify-between mb-2">
+                            <span className="text-lg font-semibold">Selecionados</span>
+                            <span className="text-2xl font-black">
+                                <span className={selected.length === 10 ? "text-green-400" : "text-purple-400"}>
+                                    {selected.length}
+                                </span>
+                                <span className="text-zinc-500">/10</span>
+                            </span>
+                        </div>
+
+                        <div className="w-full h-3 bg-zinc-800 rounded-full overflow-hidden">
+                            <div
+                                className={`h-full transition-all duration-500 ${
+                                    selected.length === 10 
+                                        ? "bg-linear-to-r from-green-500 to-emerald-500" 
+                                        : "bg-linear-to-r from-purple-500 to-pink-500"
+                                }`}
+                                style={{ width: `${selected.length * 10}%` }}
+                            />
+                        </div>
+
+                        {/* Buttons */}
+                        <div className="flex gap-4">
+                            <button
+                                onClick={() => setSelected([])}
+                                disabled={selected.length === 0}
+                                className="flex-1 px-6 py-4 rounded-xl text-lg font-bold bg-zinc-800/50 border border-zinc-700
+                                hover:bg-zinc-700/50 disabled:opacity-40 disabled:cursor-not-allowed
+                                transition-all duration-300 active:scale-95"
+                            >
+                                ✖️ Limpar
+                            </button>
+                            
+                            <button
+                                onClick={shuffleBalanced}
+                                disabled={loading || selected.length !== 10}
+                                className="flex-1 px-6 py-4 rounded-xl text-lg font-bold bg-linear-to-r from-purple-600 to-indigo-600
+                                hover:from-purple-700 hover:to-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed
+                                shadow-xl shadow-purple-600/30 transition-all duration-300 active:scale-95"
+                            >
+                                {loading ? "⏳ Gerando..." : "🔥 Gerar Times"}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-
-            {/* resultados se o numero de players do dois times forem maior que zero */}
+            {/* Results */}
             {(teamA.length > 0 || teamB.length > 0) && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <TeamCardA title="Time A" list={teamA} />
-                    <TeamCardB title="Time B" list={teamB} />
+                <div className="max-w-7xl mx-auto px-6 py-24 mb-32">
+                    <div className="text-center mb-16">
+                        <h2 className="text-5xl md:text-7xl font-black mb-4">
+                            <span className="bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                                RESULTADO
+                            </span>
+                        </h2>
+                        <p className="text-zinc-400 text-xl">Times gerados com sucesso!</p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-8">
+                        <TeamCard title="TIME A" list={teamA} color="blue" />
+                        <TeamCard title="TIME B" list={teamB} color="orange" />
+                    </div>
                 </div>
             )}
-
-
         </div>
     );
 }
 
-function TeamCardA({ title, list }) {
+function TeamCard({ title, list, color }) {
     const sum = list.reduce((acc, p) => acc + p.tier, 0);
+    
+    const colorClasses = {
+        blue: {
+            linear: "from-blue-600/20 to-cyan-600/20",
+            border: "border-blue-500/50",
+            text: "text-blue-400",
+            glow: "shadow-blue-500/20"
+        },
+        orange: {
+            linear: "from-orange-600/20 to-red-600/20",
+            border: "border-orange-500/50",
+            text: "text-orange-400",
+            glow: "shadow-orange-500/20"
+        }
+    };
+
+    const colors = colorClasses[color];
 
     return (
-        <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 shadow-lg">
-            <h2 className={`text-xl font-bold mb-4 text-blue-400`}>{title}</h2>
-            <ul className="space-y-2">
-                {list.map((p) => (
-                    <li
-                        key={p._id}
-                        className="flex justify-between pb-1 text-base border-b border-zinc-800/60"
-                    >
-                        <span>{p.nickname}</span>
-                        <span className="text-gray-300">Tier {p.tier}</span>
-                    </li>
-                ))}
-            </ul>
+        <div className="relative group">
+            {/* Glow effect */}
+            <div className={`absolute inset-0 bg-linear-to-r ${colors.linear} rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100`} />
+            
+            {/* Card */}
+            <div className={`relative bg-zinc-900/50 backdrop-blur-xl rounded-3xl border ${colors.border} p-8 ${colors.glow} shadow-xl`}>
+                <h3 className={`text-3xl font-black mb-8 ${colors.text}`}>{title}</h3>
+                
+                <div className="space-y-4 mb-8">
+                    {list.map((p, idx) => (
+                        <div
+                            key={p._id}
+                            className="flex items-center justify-between py-4 px-4 rounded-xl bg-white/5 border border-white/10
+                            hover:bg-white/10 transition-all"
+                        >
+                            <div className="flex items-center gap-4">
+                                <span className={`text-2xl font-black ${colors.text}`}>
+                                    {idx + 1}
+                                </span>
+                                <span className="text-lg font-semibold">{p.nickname}</span>
+                            </div>
+                            <div className={`px-4 py-2 rounded-full bg-white/10 border border-white/20`}>
+                                <span className="text-sm font-bold">Tier {p.tier}</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
 
-            <p className="mt-4 text-gray-300 text-xl font-semibold">
-                Total:{" "}
-                <span className={`text-blue-400`}>{sum}</span>
-            </p>
-        </div>
-    );
-}
-function TeamCardB({ title, list }) {
-    const sum = list.reduce((acc, p) => acc + p.tier, 0);
-
-    return (
-        <div className="bg-zinc-900/60 border border-zinc-800 rounded-xl p-6 shadow-lg">
-            <h2 className={`text-xl font-bold mb-4 text-orange-400`}>{title}</h2>
-            <ul className="space-y-2">
-                {list.map((p) => (
-                    <li
-                        key={p._id}
-                        className="flex justify-between pb-1 text-base border-b border-zinc-800/60"
-                    >
-                        <span>{p.nickname}</span>
-                        <span className="text-gray-300">Tier {p.tier}</span>
-                    </li>
-                ))}
-            </ul>
-
-            <p className="mt-4 text-gray-300 text-xl font-semibold">
-                Total:{" "}
-                <span className={`text-orange-400`}>{sum}</span>
-            </p>
+                <div className={`pt-6 border-t border-white/10`}>
+                    <div className="flex items-center justify-between">
+                        <span className="text-xl font-bold text-zinc-400">Total de Tier</span>
+                        <span className={`text-4xl font-black ${colors.text}`}>{sum}</span>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
