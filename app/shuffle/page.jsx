@@ -11,7 +11,6 @@ export default function ShufflePage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [search, setSearch] = useState("");
-    const targetElement = document.getElementById('teams');
 
     useEffect(() => {
         async function load() {
@@ -86,9 +85,6 @@ export default function ShufflePage() {
         setTeamA(bestA);
         setTeamB(bestB);
         setLoading(false);
-        targetElement.scrollIntoView({
-            behavior: 'smooth'
-        });
     };
 
     return (
@@ -243,8 +239,8 @@ export default function ShufflePage() {
                         <div className="w-full h-3 bg-zinc-800 rounded-full overflow-hidden">
                             <div
                                 className={`h-full transition-all duration-500 ${selected.length === 10
-                                        ? "bg-linear-to-r from-green-500 to-emerald-500"
-                                        : "bg-linear-to-r from-purple-500 to-pink-500"
+                                    ? "bg-linear-to-r from-green-500 to-emerald-500"
+                                    : "bg-linear-to-r from-purple-500 to-pink-500"
                                     }`}
                                 style={{ width: `${selected.length * 10}%` }}
                             />
@@ -263,14 +259,27 @@ export default function ShufflePage() {
                             </button>
 
                             <button
-                                onClick={shuffleBalanced}
+                                type="button"
                                 disabled={loading || selected.length !== 10}
-                                className="flex-1 px-6 py-4 rounded-xl text-lg font-bold bg-linear-to-r from-purple-600 to-indigo-600
-                                hover:from-purple-700 hover:to-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed
-                                shadow-xl shadow-purple-600/30 transition-all duration-300 active:scale-95"
-                            >
+                                onClick={() => {
+                                    if (loading || selected.length !== 10) return
+
+                                    shuffleBalanced()
+
+                                    requestAnimationFrame(() => {
+                                        document.getElementById("teams")?.scrollIntoView({ behavior: "smooth", block: "start" })
+                                    })
+                                }}
+                                className="text-center flex-1 px-6 py-4 rounded-xl text-lg font-bold
+                                bg-linear-to-r from-purple-600 to-indigo-600
+                                hover:from-purple-700 hover:to-indigo-700
+                                disabled:opacity-40 disabled:cursor-not-allowed
+                                shadow-xl shadow-purple-600/30
+                                transition-all duration-300 active:scale-95"
+                                                >
                                 {loading ? "⏳ Gerando..." : "🔥 Gerar Times"}
                             </button>
+
                         </div>
                     </div>
                 </div>
