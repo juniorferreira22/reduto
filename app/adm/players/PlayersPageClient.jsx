@@ -11,12 +11,6 @@ export default function PlayersPageClient() {
     const [editing, setEditing] = useState(null);
     const [search, setSearch] = useState("");
 
-    async function fetchPlayers() {
-        const res = await fetch("/api/players");
-        const data = await res.json();
-        setPlayers(data);
-    }
-
     const filteredPlayers = players.filter((player) =>
         player.nickname.toLowerCase().includes(search.toLowerCase())
     );
