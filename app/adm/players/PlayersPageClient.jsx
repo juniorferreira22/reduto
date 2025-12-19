@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import PlayerModal from "@/app/components/PlayerModal";
 import PlayerRow from "@/app/components/PlayerRow";
+import { startTransition } from "react";
 
 export default function PlayersPageClient() {
     const [players, setPlayers] = useState([]);
