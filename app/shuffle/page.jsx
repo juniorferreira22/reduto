@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Suspense } from "react";
+import Image from "next/image";
 
 export default function ShufflePage() {
     const [players, setPlayers] = useState([]);
@@ -194,9 +195,21 @@ export default function ShufflePage() {
                                                 </div>
                                             )}
 
-                                            <h3 className="text-xl font-bold mb-2">{p.nickname}</h3>
-                                            <div className="inline-block px-4 py-1 rounded-full bg-purple-500/20 border border-purple-500/30">
-                                                <span className="text-purple-400 font-semibold">Tier {p.tier}</span>
+                                            <h3 className="text-xl font-bold mb-4">{p.nickname}</h3>
+                                            <div className="flex items-center justify-center gap-2">
+                                                <div className="inline-block px-4 py-1 rounded-full bg-purple-500/20 border border-purple-500/30 shadow-purple-600/30 shadow-md">
+                                                    <span className="text-purple-400 font-semibold">Tier {p.tier}</span>
+                                                </div>
+                                                {p.vip && (
+                                                    <div className={`flex gap-1 px-4 py-2 rounded-full bg-yellow-400/20 border border-yellow-300 shadow-amber-200/30 shadow-lg`}>
+                                                        <span className="text-yellow-300 font-semibold">VIP</span>
+                                                        <span>
+                                                            <Image src={"/crown-svgrepo-com.svg"} alt="coroa" width={20} height={20} />
+                                                        </span>
+                                                    </div>
+                                                )
+                                                }
+
                                             </div>
                                         </div>
 
@@ -208,10 +221,13 @@ export default function ShufflePage() {
                                             className="block w-full py-4 bg-blue-600/20 hover:bg-blue-600/30 border-t border-white/5 rounded-b-2xl
                                             text-blue-400 font-semibold transition-colors items-center justify-center gap-2"
                                         >
-                                            Perfil Steam
-                                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.002 19.323a7.322 7.322 0 01-5.476-12.477l3.825 1.58a2.01 2.01 0 011.163 1.85 2.011 2.011 0 01-2.01 2.01 2.012 2.012 0 01-1.163-.368l-3.825-1.58a7.322 7.322 0 0010.486 5.985 7.322 7.322 0 00-3-14z" />
-                                            </svg>
+                                            <span className="flex justify-center gap-2">
+                                                <p>
+                                                    Perfil Steam
+                                                </p>
+                                                <Image className="brightness-200" src={"/steam.svg"} alt="steam" height={20} width={20}></Image>
+
+                                            </span>
                                         </a>
                                     </div>
                                 </button>
@@ -276,7 +292,7 @@ export default function ShufflePage() {
                                 disabled:opacity-40 disabled:cursor-not-allowed
                                 shadow-xl shadow-purple-600/30
                                 transition-all duration-300 active:scale-95"
-                                                >
+                            >
                                 {loading ? "⏳ Gerando..." : "🔥 Gerar Times"}
                             </button>
 
