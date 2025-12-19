@@ -21,8 +21,14 @@ export default function PlayersPageClient() {
     );
 
     useEffect(() => {
-        fetchPlayers();
+        startTransition(() => {
+            fetch("/api/players")
+                .then((res) => res.json())
+                .then(setPlayers);
+        });
     }, []);
+
+
 
     function handleEdit(player) {
         setEditing(player);

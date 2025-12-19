@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import InteractiveLogo from "../components/InteractiveLogo";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -129,7 +128,13 @@ export default function LoginPage() {
 
             {/* --- LOGO (DESKTOP ONLY) --- */}
             <div className="hidden lg:flex items-center justify-center">
-                <InteractiveLogo className="max-w-lg opacity-95 scale-110" />
+                <h1 className="text-7xl md:text-9xl font-black mb-8 tracking-tight">
+                    <span className="bg-linear-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent">
+                        REDUTO
+                    </span>
+                    <br />
+                    <span className="text-white">DOS LOUCOS</span>
+                </h1>
             </div>
         </div>
     );

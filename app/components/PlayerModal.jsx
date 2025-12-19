@@ -1,15 +1,16 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export default function PlayerModal({ open, onClose, onSaved, initial }) {
-    if (!open) return null;
-
+    
     const [nickname, setNickname] = useState(initial?.nickname || "");
     const [tier, setTier] = useState(initial?.tier || 1);
     const [steamProfile, setSteamProfile] = useState(initial?.steamProfile || "");
     const [vip, setVip] = useState(initial?.vip || false);
-
+    
+    if (!open) return null;
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -17,30 +18,28 @@ export default function PlayerModal({ open, onClose, onSaved, initial }) {
             nickname,
             tier: Number(tier),
             steamProfile,
-            vip
+            vip,
         };
 
         let saved;
 
         if (initial?._id) {
-            //  put
             const res = await fetch("/api/players", {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ ...player, _id: initial._id })
+                body: JSON.stringify({ ...player, _id: initial._id }),
             });
             saved = await res.json();
         } else {
-            // post
             const res = await fetch("/api/players", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(player)
+                body: JSON.stringify(player),
             });
             saved = await res.json();
         }
 
-        onSaved(saved); // atualizando lista na telita
+        onSaved(saved);
         onClose();
     };
 
@@ -105,7 +104,7 @@ export default function PlayerModal({ open, onClose, onSaved, initial }) {
                             onChange={(e) => setSteamProfile(e.target.value)}
                         />
                     </div>
-                    
+
                     <div className="flex justify-end gap-3 pt-4">
                         <button
                             type="button"
