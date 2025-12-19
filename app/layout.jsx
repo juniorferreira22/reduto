@@ -3,9 +3,9 @@ import { verifyAdmin } from "./lib/auth";
 import Nav from "./components/Nav";
 import MobileMenu from "./components/MobileMenu";
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
 
-  const isAdmin = verifyAdmin();
+  const isAdmin = await verifyAdmin();
 
   return (
     <html lang="pt-br">

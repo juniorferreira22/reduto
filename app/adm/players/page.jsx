@@ -3,11 +3,10 @@ import { redirect } from "next/navigation";
 import { verifyAdmin } from "@/app/lib/auth";
 import PlayersPageClient from "./PlayersPageClient";
 
-export default function PlayersPage() {
-    const cookieStore = cookies();
+export default async function PlayersPage() {
+    const cookieStore = await cookies();
     const token = cookieStore.get("admin_token")?.value;
-    // verifica a token do jwt e se estiver vazia redireciona para a página de login
-    if (!verifyAdmin()) {
+    if (!await verifyAdmin(token)) {
         return redirect("/login");
     }
 
