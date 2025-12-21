@@ -35,6 +35,8 @@ export default function MobileMenu({ isAdmin }) {
 
                     <NavItem href="/shuffle">Sorteador de Times</NavItem>
 
+                    <NavItem href="/about/cs2">Blog CS2</NavItem>
+                    
                     <li>
                         <a
                             href="https://discord.gg/q6WUSGZpSd"
