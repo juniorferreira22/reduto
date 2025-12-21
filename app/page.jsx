@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -82,9 +83,11 @@ export default function Home() {
           
           <div className="relative bg-zinc-900/50 backdrop-blur-xl rounded-xl overflow-hidden border border-white/5">
             <div className="aspect-21/9 relative overflow-hidden">
-              <img 
+              <Image 
                 src="/reduto-wp.png" 
                 alt="Reduto"
+                width={1200}
+                height={514}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-linear-to-t from-zinc-900 via-zinc-900/50 to-transparent" />
@@ -123,9 +126,11 @@ export default function Home() {
             
             <div className="relative bg-zinc-900/50 backdrop-blur-xl rounded-xl overflow-hidden border border-white/5 h-full">
               <div className="aspect-video relative overflow-hidden">
-                <img 
+                <Image 
                   src="/rp.jpg" 
                   alt="GTA RP"
+                  width={600}                  
+                  height={400}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-zinc-900 via-zinc-900/30 to-transparent" />
@@ -160,8 +165,10 @@ export default function Home() {
             
             <div className="relative bg-zinc-900/50 backdrop-blur-xl rounded-xl overflow-hidden border border-white/5 h-full">
               <div className="aspect-video relative overflow-hidden">
-                <img 
+                <Image 
                   src="/howl.png" 
+                  width={600}
+                  height={400}
                   alt="CS2"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />

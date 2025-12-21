@@ -9,70 +9,52 @@ export default function CS2BlogPage() {
     const [search, setSearch] = useState("");
     const [expandedPosts, setExpandedPosts] = useState(new Set());
 
-    const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRdbNc8RmZQ2PEKq6ZYPlCxZcqiG-It3Jvhoi3EESjS7u5IxHSEGHsN7Ez1OjMotIRKw9AkFC5wRO-3/pub?gid=833973635&single=true&output=csv";
-
     useEffect(() => {
-        fetchPosts();
+        fetch("/api/posts/cs2")
+            .then(res => res.json())
+            .then(data => {
+                // Normaliza as chaves removendo espaços extras
+                const normalizedData = data.map((post, index) => ({
+                    id: index,
+                    title: post["title "]?.trim() || post.title?.trim() || "Sem título",
+                    preview: post["  preview  "]?.trim() || post.preview?.trim() || "Sem preview",
+                    fullContent: post.fullContent?.trim() || "Sem conteúdo"
+                }));
+                setPosts(normalizedData);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Erro ao carregar posts:", err);
+                setLoading(false);
+            });
     }, []);
 
-    async function fetchPosts() {
-        try {
-            setLoading(true);
-            const response = await fetch(SHEET_CSV_URL);
-            const csvText = await response.text();
-
-            
-            const rows = csvText.split('\n').slice(1); // Remove o header
-            const parsedPosts = rows
-                .filter(row => row.trim()) // Remove as linhas vazias
-                .map((row, index) => {
-                    const columns = row.split(',');
-                    return {
-                        id: index + 1,
-                        title: columns[1]?.trim() || '',
-                        preview: columns[2]?.trim() || '',
-                        fullContent: columns[3]?.trim() || ''
-                    };
-                })
-                .filter(post => post.title);
-
-            setPosts(parsedPosts);
-        } catch (error) {
-            console.error('Erro ao carregar posts:', error);
-        } finally {
-            setLoading(false);
-        }
-    }
-
     const filteredPosts = posts.filter((post) =>
-        post.title.toLowerCase().includes(search.toLowerCase()) ||
-        post.preview.toLowerCase().includes(search.toLowerCase())
+        post.title?.toLowerCase().includes(search.toLowerCase()) ||
+        post.preview?.toLowerCase().includes(search.toLowerCase())
     );
 
     const toggleExpand = (id) => {
         setExpandedPosts((prev) => {
             const newSet = new Set(prev);
-            if (newSet.has(id)) {
-                newSet.delete(id);
-            } else {
-                newSet.add(id);
-            }
+            newSet.has(id) ? newSet.delete(id) : newSet.add(id);
             return newSet;
         });
     };
 
     return (
         <div className="bg-black text-white min-h-screen overflow-x-hidden">
-
+            {/* Background Gradient */}
             <div className="absolute inset-0 bg-linear-to-b from-orange-900/20 via-black to-black" />
 
+            {/* Grid Pattern */}
             <div className="absolute inset-0 opacity-20">
                 <div
                     className="absolute inset-0"
                     style={{
                         backgroundImage: `
-              linear-linear(rgba(251,146,60,.25) 1px, transparent 1px),
-              linear-linear(90deg, rgba(251,146,60,.25) 1px, transparent 1px)
+              linear-gradient(rgba(251,146,60,.25) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(251,146,60,.25) 1px, transparent 1px)
             `,
                         backgroundSize: "50px 50px",
                     }}
@@ -81,7 +63,6 @@ export default function CS2BlogPage() {
 
             {/* Content */}
             <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
-
                 {/* Title */}
                 <div className="text-center mb-16">
                     <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-4">
@@ -106,10 +87,7 @@ export default function CS2BlogPage() {
                                 placeholder="Pesquisar posts..."
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className="
-                  flex-1 bg-transparent outline-none
-                  text-white placeholder-zinc-500
-                "
+                                className="flex-1 bg-transparent outline-none text-white placeholder-zinc-500"
                             />
                         </div>
                     </div>
@@ -134,7 +112,6 @@ export default function CS2BlogPage() {
                                             <div className="absolute inset-0 bg-linear-to-r from-orange-600/20 to-red-600/20 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
 
                                             <div className="relative bg-zinc-900/50 backdrop-blur-xl rounded-xl border border-white/5 p-8 shadow-2xl transition-all duration-300">
-
                                                 {/* Title */}
                                                 <h2 className="text-2xl md:text-3xl font-black mb-4 flex items-center gap-3">
                                                     <span className="text-orange-400">🔫</span>
@@ -143,7 +120,7 @@ export default function CS2BlogPage() {
 
                                                 {/* Content */}
                                                 <div className="text-zinc-300 leading-relaxed mb-6">
-                                                    <p className={`transition-all duration-300 ${isExpanded ? '' : 'line-clamp-3'}`}>
+                                                    <p className={`transition-all duration-300 ${isExpanded ? "" : "line-clamp-3"}`}>
                                                         {isExpanded ? post.fullContent : post.preview}
                                                     </p>
                                                 </div>
@@ -151,15 +128,7 @@ export default function CS2BlogPage() {
                                                 {/* Toggle Button */}
                                                 <button
                                                     onClick={() => toggleExpand(post.id)}
-                                                    className="
-                            inline-flex items-center gap-2
-                            px-6 py-3 rounded-lg font-semibold
-                            bg-linear-to-r from-orange-600 to-red-600
-                            hover:from-orange-500 hover:to-red-500
-                            transition-all duration-300
-                            shadow-lg shadow-orange-600/30
-                            hover:scale-105 active:scale-95
-                          "
+                                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold bg-linear-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 transition-all duration-300 shadow-lg shadow-orange-600/30 hover:scale-105 active:scale-95"
                                                 >
                                                     {isExpanded ? (
                                                         <>
@@ -180,7 +149,7 @@ export default function CS2BlogPage() {
                             ) : (
                                 <div className="text-center py-16">
                                     <p className="text-zinc-400 text-xl">
-                                        Nenhum post encontrado para "{search}"
+                                        Nenhum post encontrado para &quot;{search}&quot;
                                     </p>
                                 </div>
                             )}
@@ -189,7 +158,7 @@ export default function CS2BlogPage() {
                         {/* Footer Info */}
                         <div className="mt-16 text-center">
                             <p className="text-zinc-500 text-sm">
-                                {filteredPosts.length} {filteredPosts.length === 1 ? 'post encontrado' : 'posts encontrados'}
+                                {filteredPosts.length} {filteredPosts.length === 1 ? "post encontrado" : "posts encontrados"}
                             </p>
                         </div>
                     </>
